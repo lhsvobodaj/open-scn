@@ -4,8 +4,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{times}
+\usepackage[alf,abnt-emphasize=bf]{abntex2cite}
 
-\title{Uma plataforma aberta para criação e avaliação de artigos científicos baseada em Blockchain}
+\title{Utilizando Blockchain para criação de uma plataforma aberta para escrita colaborativa de artigos científicos}
 
 \author{Svoboda Junior}{Luiz Hermes}
 
@@ -25,7 +26,10 @@
 \input{content/introduction.tex}
 \input{content/goals.tex}
 \input{content/methodology.tex}
-\input{content/references.tex}
-\input{content/bibliography.tex}
+
+\bibliographystyle{abntex2-alf}
+\bibliography{bibliography}
+
+\label{LastPage}
 
 \end{document}
