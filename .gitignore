@@ -1,0 +1,10 @@
+# (C) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+
+pep/**/*.aux
+pep/**/*.bbl
+pep/**/*.blg
+pep/**/*.dvi
+pep/**/*.toc
+pep/**/*.out
+pep/**/*.log
+
