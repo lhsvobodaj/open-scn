@@ -1,0 +1,18 @@
+{
+  "name": "caw",
+  "version": "1.0.0",
+  "description": "Collaborative Academic Writing",
+  "author": "Luiz Hermes Svoboda Junior <luizek@gmail.com>",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-latest": "6.24.1",
+    "babel-preset-stage-0": "6.24.1"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node js/app.js"
+  }
+}

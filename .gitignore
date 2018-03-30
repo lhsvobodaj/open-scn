@@ -7,4 +7,5 @@ pep/**/*.dvi
 pep/**/*.toc
 pep/**/*.out
 pep/**/*.log
+**/node_modules
 
