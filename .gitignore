@@ -8,5 +8,5 @@ pep/**/*.toc
 pep/**/*.out
 pep/**/*.log
 **/node_modules
-dist/assets
+dist/
 
