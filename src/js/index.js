@@ -1,11 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {hello, goodbye} from './lib';
+import { App } from './App';
+
+window.React = React;
 
 render(
-    <div>
-        {hello}
-        {goodbye}
-    </div>,
-    document.getElementById('app')
+  <App />,
+  document.getElementById('react-app')
 );
