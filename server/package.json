@@ -12,7 +12,10 @@
     "node": ">=8.11.1",
     "npm": ">=5.6.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "1.18.2",
+    "express": "4.16.3"
+  },
   "devDependencies": {},
   "scripts": {
     "build": "echo \"Error: no build specified\" && exit 1"
