@@ -1,7 +1,7 @@
 {
-  "name": "blockchain-plos",
+  "name": "blockchain-plos-server",
   "version": "1.0.0",
-  "description": "Blockchain PLOS",
+  "description": "Blockchain PLOS Server",
   "author": "Luiz Hermes Svoboda Junior <luizek@gmail.com>",
   "license": "GPL-3.0",
   "repository": {
@@ -13,12 +13,8 @@
     "npm": ">=5.6.0"
   },
   "dependencies": {},
-  "devDependencies": {
-    "npm-run-all":">=4.1.2"
-  },
+  "devDependencies": {},
   "scripts": {
-    "build": "npm-p build:web build:server",
-    "build:web": "cd web && npm run build",
-    "build:server": "cd server && npm run build"
+    "build": "echo \"Error: no build specified\" && exit 1"
   }
 }
