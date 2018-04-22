@@ -14,3 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
+'use strict';
+
+const bodyParser = require('body-parser');
+const express = require('express');
+
+// [FIXME] static sample data
+const data = require('../articles.json');
+
+const PORT = 3001;
+
+const app = express();
+
+app.use(bodyParser.json());
+
+app.get('/', (req, res) => {
+  res.json(data);
+});
+
+app.listen(PORT);
+
+console.log('Listening on port ' + PORT);

@@ -1,0 +1,14 @@
+[
+  {
+    "authors": ["Palazzo", "Svoboda", "Somebody"],
+    "title": "Sample Title #0",
+    "abstract": "Sample abstract #0",
+    "content": "Sample content #0"
+  },
+  {
+    "authors": ["Palazzo", "Svoboda"],
+    "title": "Sample Title #1",
+    "abstract": "Sample abstract #1",
+    "content": "Sample content #1"
+  }
+]
