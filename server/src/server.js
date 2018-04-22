@@ -30,6 +30,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
+  console.log('Request received!');
+
   res.json(data);
 });
 
