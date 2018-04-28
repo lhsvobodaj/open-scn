@@ -15,22 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+// import App from 'grommet/components/App';
+// import Title from 'grommet/components/Title';
+
+import React from 'react';
 import { Component } from 'react';
 
-export class App extends Component {
+export class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      message: 'TESTE APP'
-    };
+    // this.state = {
+    //   message: 'TESTE APP'
+    // };
   }
 
   render() {
     return (
-      <div className="app">
-        {this.state.message}
-      </div>
+      <h1> TESTE </h1>
+      // <App>
+      //   <Title>TESTE</Title>
+      // </App>
     );
   }
 }

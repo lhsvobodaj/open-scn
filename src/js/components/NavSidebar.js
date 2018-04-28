@@ -15,16 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import Sidebar from 'grommet/components/Sidebar';
+import Box from 'grommet/components/Box';
+import Header from 'grommet/components/Header';
+import Title from 'grommet/components/Title';
+import Menu from 'grommet/components/Menu';
+import { NavLink } from 'react-router-dom';
 import React from 'react';
-import {render} from 'react-dom';
-import { App } from './App';
-import { BrowserRouter } from 'react-router-dom';
 
-window.React = React;
+import { Component } from 'react';
 
-render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('react-app')
-);
+export class NavSidebar extends Component {
+
+  render() {
+    return (
+      <Sidebar>
+        <Box>
+          <Header>
+            <Title>PLOS App</Title>
+          </Header>
+          <Menu>
+            [<NavLink>Teste 1</NavLink>, <NavLink>Teste 2</NavLink>]
+          </Menu>
+        </Box>
+      </Sidebar>
+    );
+  }
+
+}

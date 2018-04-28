@@ -16,17 +16,23 @@
  */
 
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
   entry: './src/js/index.js',
   output: {
-    filename: 'bundle.js'
+    path: path.resolve('./build'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devServer: {
     inline: true,
-    contentBase: './dist',
+    contentBase: path.resolve('./build'),
+    publicPath: '/',
+    watchOptions: {
+      ignored: /node_modules/
+    },
     port: 3000
   },
   module: {
@@ -48,8 +54,17 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        exclude: /(node_modules)/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'compressed',
+              includePaths: ['./node_modules']
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
@@ -65,8 +80,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
-      filename: "index.html"
+      template: './public/index.html',
+      filename: 'index.html'
     })
   ]
 };
