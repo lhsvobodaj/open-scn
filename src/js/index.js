@@ -18,7 +18,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-// import '../stylesheet/index.scss';
+import '../stylesheet/index.scss';
 import { Main } from './Main';
 
 render(

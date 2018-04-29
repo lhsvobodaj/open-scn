@@ -48,15 +48,14 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        exclude: /(node_modules)/,
-        use: [ 'style-loader', 'css-loader' ]
-      },
-      {
         test: /\.scss$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].css'
+            }
+          },
           {
             loader: 'sass-loader',
             options: {

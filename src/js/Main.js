@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-// import App from 'grommet/components/App';
-// import Title from 'grommet/components/Title';
+import App from 'grommet/components/App';
+import Title from 'grommet/components/Title';
 
 import React from 'react';
 import { Component } from 'react';
@@ -32,10 +32,9 @@ export class Main extends Component {
 
   render() {
     return (
-      <h1> TESTE </h1>
-      // <App>
-      //   <Title>TESTE</Title>
-      // </App>
+      <App>
+        <Title>Blockchain PLOS App</Title>
+      </App>
     );
   }
 }
