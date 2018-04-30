@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import Box from 'grommet/components/Box';
-import Label from 'grommet/components/Label';
-import List from 'grommet/components/List';
-import ListItem from 'grommet/components/ListItem';
-import React from 'react';
+import Accordion from 'grommet/components/Accordion';
+import AccordionPanel from 'grommet/components/AccordionPanel';
+import Header from 'grommet/components/Header';
+import Heading from 'grommet/components/Heading';
+import Paragraph from 'grommet/components/Paragraph';
+import Article from 'grommet/components/Article';
 
+import React from 'react';
 import { Component } from 'react';
 
 export default class Papers extends Component {
@@ -29,26 +31,29 @@ export default class Papers extends Component {
 
     this.state = {
       papers: [
-        {id: 1, abstract: 'Abstract sample #1', content: 'Content sample #1'},
-        {id: 2, abstract: 'Abstract sample #2', content: 'Content sample #2'}
+        {id: 1, title: 'Sample Title #1', abstract: 'Abstract sample #1', content: 'Content sample #1'},
+        {id: 2, title: 'Sample Title #2', abstract: 'Abstract sample #2', content: 'Content sample #2'}
       ]
     };
   }
 
   render() {
     const values = this.state.papers.map(paper => (
-      <ListItem key={paper.id}>
-        <Label>{paper.abstract}</Label>
-      </ListItem>
+      <AccordionPanel heading={paper.title}>
+        <Paragraph>{paper.abstract}</Paragraph>
+      </AccordionPanel>
       )
     );
 
     return (
-      <Box full={true} align='center' primary={true}>
-        <List>
+      <Article primary={true}>
+        <Header direction='row' size='large' justify='between'>
+          <Heading>Papers</Heading>
+        </Header>
+        <Accordion>
           {values}
-        </List>
-      </Box>
+        </Accordion>
+      </Article>
     );
   }
 }
