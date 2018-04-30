@@ -30,6 +30,7 @@ module.exports = {
     inline: true,
     contentBase: path.resolve('./build'),
     publicPath: '/',
+    historyApiFallback: true,
     watchOptions: {
       ignored: /node_modules/
     },

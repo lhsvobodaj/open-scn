@@ -15,29 +15,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import Sidebar from 'grommet/components/Sidebar';
-import Header from 'grommet/components/Header';
-import Title from 'grommet/components/Title';
-import Menu from 'grommet/components/Menu';
-import Anchor from 'grommet/components/Anchor';
+import Box from 'grommet/components/Box';
+import Label from 'grommet/components/Label';
+import List from 'grommet/components/List';
+import ListItem from 'grommet/components/ListItem';
 import React from 'react';
 
 import { Component } from 'react';
 
-export class NavSidebar extends Component {
+export default class Papers extends Component {
+  constructor(props) {
+    super(props);
 
-  render() {
-    return (
-      <Sidebar fixed={true} colorIndex='neutral-3'>
-        <Header>
-          <Title>PLOS App</Title>
-        </Header>
-        <Menu fill={true} primary={true}>
-          <Anchor key='Dashboard' path='/dashboard' label='Dashboard'/>
-          <Anchor key='Papers' path='/papers' label='Papers'/>
-        </Menu>
-      </Sidebar>
-    );
+    this.state = {
+      papers: [
+        {id: 1, abstract: 'Abstract sample #1', content: 'Content sample #1'},
+        {id: 2, abstract: 'Abstract sample #2', content: 'Content sample #2'}
+      ]
+    };
   }
 
+  render() {
+    const values = this.state.papers.map(paper => (
+      <ListItem key={paper.id}>
+        <Label>{paper.abstract}</Label>
+      </ListItem>
+      )
+    );
+
+    return (
+      <Box full={true} align='center' primary={true}>
+        <List>
+          {values}
+        </List>
+      </Box>
+    );
+  }
 }

@@ -15,37 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import App from 'grommet/components/App';
 import Title from 'grommet/components/Title';
-import Split from 'grommet/components/Split';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Box from 'grommet/components/Box';
 
 import React from 'react';
 import { Component } from 'react';
 
-import { NavSidebar } from './components/NavSidebar';
-import NotFound from './components/NotFound';
-import Papers from './components/Papers';
-
-export class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+export default class NotFound extends Component {
   render() {
     return (
-      <App centered={false}>
-        <BrowserRouter>
-          <Split priority='left' flex='right'>
-            <NavSidebar />
-            <Switch>
-              <Route exact={true} path='/' component={NotFound} />
-              <Route path='/dashboard' component={NotFound} />
-              <Route path='/papers' component={Papers} />
-            </Switch>
-          </Split>
-        </BrowserRouter>
-      </App>
+      <Box full={true} align='center'>
+        <Title>Opss... page not found!</Title>
+      </Box>
     );
   }
 }
