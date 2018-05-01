@@ -15,10 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-const ADD_PAPER = 'ADD_PAPER';
-const LOAD_PAPERS = 'LOAD_PAPERS';
-const PAPERS_LOADED = 'PAPERS_LOADED';
-
-module.exports.ADD_PAPER = ADD_PAPER;
-module.exports.LOAD_PAPERS = LOAD_PAPERS;
-module.exports.PAPERS_LOADED = PAPERS_LOADED;
+export const LOAD_PAPERS = 'LOAD_PAPERS';

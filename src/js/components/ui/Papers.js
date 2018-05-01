@@ -24,26 +24,25 @@ import Article from 'grommet/components/Article';
 
 import React from 'react';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { loadPapers } from '../../actions/papers';
 
 export default class Papers extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      papers: [
-        {id: 1, title: 'Sample Title #1', abstract: 'Abstract sample #1', content: 'Content sample #1'},
-        {id: 2, title: 'Sample Title #2', abstract: 'Abstract sample #2', content: 'Content sample #2'}
-      ]
-    };
+  componentDidMount() {
+    this.props.dispatch(loadPapers());
   }
 
   render() {
-    const values = this.state.papers.map(paper => (
-      <AccordionPanel heading={paper.title}>
+    const values = this.props.papers.map((paper, index) => (
+      <AccordionPanel key={index} heading={paper.title}>
         <Paragraph>{paper.abstract}</Paragraph>
       </AccordionPanel>
-      )
-    );
+    ));
 
     return (
       <Article primary={true}>
@@ -57,3 +56,9 @@ export default class Papers extends Component {
     );
   }
 }
+
+Papers.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  papers: PropTypes.arrayOf(PropTypes.object)
+};

@@ -15,22 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import React from 'react';
-import {render} from 'react-dom';
-import { Provider } from 'react-redux';
+import Papers from '../ui/Papers';
+import { connect } from 'react-redux';
 
-import '../stylesheet/index.scss';
-import { Main } from './Main';
-import store from './store';
+const mapStateToProps = (state) => {
+  return {
+    papers: state.papers
+  };
+};
 
-window.React = React;
-
-// TODO [svoboda] allows access to store from browser console
-window.store = store;
-
-render(
-  <Provider store={store}>
-    <Main />
-  </Provider>,
-  document.getElementById('app')
-);
+export default connect(mapStateToProps)(Papers);

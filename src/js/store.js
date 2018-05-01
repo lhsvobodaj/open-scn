@@ -13,15 +13,15 @@
 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+*/
 
-import ACTIONS from '../actions';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
-export default (state=[], action) => {
-  if (action.type === ACTIONS.ADD_PAPER) {
-    return [
-      ...state,
-      action.payload
-    ];
-  }
+import reducers from './reducers';
+
+let initialState = {
+  papers: []
 };
+
+export default createStore(reducers, initialState, applyMiddleware(thunk));

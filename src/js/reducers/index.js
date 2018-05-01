@@ -17,8 +17,16 @@
 
 import { combineReducers } from 'redux';
 
-import papers from './papers';
+import { LOAD_PAPERS } from '../actions';
+
+const papersReducer = (state=[], action) => {
+  if (action.type === LOAD_PAPERS) {
+    return action.payload;
+  } else {
+    return state;
+  }
+};
 
 export default combineReducers(
-  papers
+  { papers: papersReducer }
 );

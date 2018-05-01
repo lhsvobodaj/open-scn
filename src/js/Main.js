@@ -22,22 +22,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { Component } from 'react';
 
-import { NavSidebar } from './components/NavSidebar';
-import NotImplemented from './components/NotImplemented';
-import Papers from './components/Papers';
-
-// import { createStore } from 'redux';
-// import reducers from './reducers';
-
-// const store = createStore(reducers, {
-//   user: {},
-//   papers: [],
-// });
+import { NavSidebar } from './components/ui/NavSidebar';
+import NotImplemented from './components/ui/NotImplemented';
+import Papers from './components/containers/Papers';
 
 export class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -55,4 +44,5 @@ export class Main extends Component {
       </App>
     );
   }
+
 }

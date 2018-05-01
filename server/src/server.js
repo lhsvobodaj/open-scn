@@ -20,6 +20,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
 // [FIXME] static sample data
 const data = require('../papers.json');
@@ -30,6 +31,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+app.use(cors());
 
 app.get('/papers', (req, res) => {
   res.json(data);
