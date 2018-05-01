@@ -19,19 +19,19 @@
 
 const bodyParser = require('body-parser');
 const express = require('express');
+const morgan = require('morgan');
 
 // [FIXME] static sample data
-const data = require('../articles.json');
+const data = require('../papers.json');
 
 const PORT = 3001;
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-  console.log('Request received!');
-
+app.get('/papers', (req, res) => {
   res.json(data);
 });
 
