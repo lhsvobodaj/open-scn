@@ -15,18 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import Title from 'grommet/components/Title';
-import Box from 'grommet/components/Box';
+import ACTIONS from '../actions';
 
-import React from 'react';
-import { Component } from 'react';
-
-export default class NotFound extends Component {
-  render() {
-    return (
-      <Box full={true} align='center'>
-        <Title>Opss... page not found!</Title>
-      </Box>
-    );
+export default (state=[], action) => {
+  if (action.type === ACTIONS.ADD_PAPER) {
+    return [
+      ...state,
+      action.payload
+    ];
   }
-}
+};

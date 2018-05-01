@@ -16,16 +16,23 @@
  */
 
 import App from 'grommet/components/App';
-import Title from 'grommet/components/Title';
 import Split from 'grommet/components/Split';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { Component } from 'react';
 
 import { NavSidebar } from './components/NavSidebar';
-import NotFound from './components/NotFound';
+import NotImplemented from './components/NotImplemented';
 import Papers from './components/Papers';
+
+// import { createStore } from 'redux';
+// import reducers from './reducers';
+
+// const store = createStore(reducers, {
+//   user: {},
+//   papers: [],
+// });
 
 export class Main extends Component {
   constructor(props) {
@@ -39,8 +46,8 @@ export class Main extends Component {
           <Split priority='left' flex='right'>
             <NavSidebar />
             <Switch>
-              <Route exact={true} path='/' component={NotFound} />
-              <Route path='/dashboard' component={NotFound} />
+              <Route exact={true} path='/' component={NotImplemented} />
+              <Route path='/dashboard' component={NotImplemented} />
               <Route path='/papers' component={Papers} />
             </Switch>
           </Split>

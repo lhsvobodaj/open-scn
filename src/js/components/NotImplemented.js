@@ -15,45 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "no-console": 1,
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+import Title from 'grommet/components/Title';
+import Box from 'grommet/components/Box';
+
+import React from 'react';
+import { Component } from 'react';
+
+export default class NotImplemented extends Component {
+  render() {
+    return (
+      <Box full={true} align='center'>
+        <Title>Opss... not implemented yet!</Title>
+      </Box>
+    );
   }
-};
+}

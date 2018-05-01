@@ -15,45 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "no-console": 1,
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
-  }
-};
+import { combineReducers } from 'redux';
+
+import papers from './papers';
+
+export default combineReducers(
+  papers
+);

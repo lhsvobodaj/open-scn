@@ -15,45 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "no-console": 1,
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
-  }
-};
+const ADD_PAPER = 'ADD_PAPER';
+const LOAD_PAPERS = 'LOAD_PAPERS';
+const PAPERS_LOADED = 'PAPERS_LOADED';
+
+module.exports.ADD_PAPER = ADD_PAPER;
+module.exports.LOAD_PAPERS = LOAD_PAPERS;
+module.exports.PAPERS_LOADED = PAPERS_LOADED;
