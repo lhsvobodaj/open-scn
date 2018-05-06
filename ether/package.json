@@ -1,0 +1,21 @@
+{
+  "name": "blockchain-plos-ethereum",
+  "version": "1.0.0",
+  "description": "Blockchain PLOS Ethereum",
+  "author": "Luiz Hermes Svoboda Junior <luizek@gmail.com>",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lhsvobodaj/blockchain-plos"
+  },
+  "engines": {
+    "node": ">=8.11.1",
+    "npm": ">=5.6.0"
+  },
+  "dependencies": {
+    "truffle": "4.1.8",
+    "solc": "0.4.23"
+  },
+  "devDependencies": {},
+  "scripts": {}
+}
