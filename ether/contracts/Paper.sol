@@ -3,6 +3,7 @@ pragma solidity ^0.4.23;
 contract Paper {
 
     address private author;
+    string private title;
 
     struct Contributor {
         address author;
@@ -19,8 +20,13 @@ contract Paper {
         _;
     }
 
-    constructor() public {
-        author = msg.sender;
+    constructor(address owner, string paperTitle) public {
+        author = owner;
+        title = paperTitle;
+    }
+
+    function getAddress() public view returns (address) {
+        return this;
     }
 
 }
