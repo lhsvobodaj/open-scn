@@ -15,46 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 2017,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "no-console": 1,
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+'use strict';
+
+const Web3 = require('web3');
+const provider = new Web3.providers.HttpProvider('http://127.0.0.1:9545');
+
+if (provider.sendAsync !== 'function') {
+  provider.sendAsync = provider.send.bind(provider);
+}
+
+const truffleContract = require('truffle-contract');
+const PapersJSON = require('../build/contracts/Papers.json');
+const Papers = truffleContract(PapersJSON);
+
+Papers.setProvider(provider);
+
+const web3 = new Web3(provider);
+
+module.exports = web3;
+
+module.exports.getPapersContract = async () => {
+  try {
+    return await Papers.deployed();
+  } catch (err) {
+    console.error('Could not fetch Papers contract instance');
+    throw err;
   }
 };

@@ -17,7 +17,8 @@
 
 'use strict';
 
-const Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:9545'));
+var Papers = artifacts.require('./Papers.sol');
 
-console.log(web3);
+module.exports = function(deployer) {
+  deployer.deploy(Papers);
+};
