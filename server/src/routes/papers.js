@@ -17,23 +17,21 @@
 
 'use strict';
 
-const bodyParser = require('body-parser');
 const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
+const router = express.Router();
 
-const papersRouter = require('./routes/papers');
+// [FIXME] static sample data
+const data = require('../../papers.json');
 
-const PORT = 3001;
+const web3Client = require('../web3Client');
 
-const app = express();
+router.get('/', async (req, res) => {
+  const papersContract = await web3Client.getPapersContract();
 
-app.use(bodyParser.json());
-app.use(morgan('dev'));
-app.use(cors());
+  console.log(papersContract);
+  console.log('carregou o contrato com sucesso');
 
-app.use('/papers', papersRouter);
+  res.json(data);
+});
 
-app.listen(PORT);
-
-console.log('Listening on port ' + PORT);
+module.exports = router;

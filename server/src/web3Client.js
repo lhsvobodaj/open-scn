@@ -38,7 +38,7 @@ module.exports.getPapersContract = async () => {
   try {
     return await Papers.deployed();
   } catch (err) {
-    console.error('Could not fetch Papers contract instance');
+    console.error('Could not fetch contract instance');
     throw err;
   }
 };
