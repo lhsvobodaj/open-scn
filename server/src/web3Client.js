@@ -25,18 +25,18 @@ if (provider.sendAsync !== 'function') {
 }
 
 const truffleContract = require('truffle-contract');
-const PapersJSON = require('../build/contracts/Papers.json');
-const Papers = truffleContract(PapersJSON);
+const OpenSCN = require('../build/contracts/OpenSCN.json');
+const contract = truffleContract(OpenSCN);
 
-Papers.setProvider(provider);
+contract.setProvider(provider);
 
 const web3 = new Web3(provider);
 
 module.exports = web3;
 
-module.exports.getPapersContract = async () => {
+module.exports.getContract = async () => {
   try {
-    return await Papers.deployed();
+    return await contract.deployed();
   } catch (err) {
     console.error('Could not fetch contract instance');
     throw err;

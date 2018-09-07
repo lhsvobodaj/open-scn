@@ -17,8 +17,8 @@
 
 'use strict';
 
-var Papers = artifacts.require('./Papers.sol');
+var OpenSCN = artifacts.require('./OpenSCN.sol');
 
 module.exports = function(deployer) {
-  deployer.deploy(Papers);
+  deployer.deploy(OpenSCN);
 };

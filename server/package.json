@@ -1,12 +1,12 @@
 {
-  "name": "blockchain-plos-server",
+  "name": "openscn-server",
   "version": "1.0.0",
-  "description": "Blockchain PLOS Server",
+  "description": "OpenSCN Server",
   "author": "Luiz Hermes Svoboda Junior <luizek@gmail.com>",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lhsvobodaj/blockchain-plos"
+    "url": "https://github.com/lhsvobodaj/openscn-plos"
   },
   "engines": {
     "node": ">=8.11.1",

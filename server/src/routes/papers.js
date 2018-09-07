@@ -19,19 +19,15 @@
 
 const express = require('express');
 const router = express.Router();
-
-// [FIXME] static sample data
-const data = require('../../papers.json');
-
 const web3Client = require('../web3Client');
 
 router.get('/', async (req, res) => {
-  const papersContract = await web3Client.getPapersContract();
+  const contract = await web3Client.getContract();
 
-  console.log(papersContract);
+  console.log(contract);
   console.log('carregou o contrato com sucesso');
 
-  res.json(data);
+  res.json({'result': 'OK'});
 });
 
 module.exports = router;
