@@ -1,4 +1,4 @@
-# PLOS-like platform using blockchain
+# OpenSCN - Open Scientific Collaboration Network
 
 A thorough description of the project can be found at [PEP](doc/pep/dist/pep.pdf) (Portuguese only).
 
@@ -10,7 +10,7 @@ Currently, this project makes use of the [Truffle Suite](https://truffleframewor
 
 * Centralization: Use IPFS as the main database to store the content.
 
-* Privacy: An alternative to avoid storing the content as plain text is to use GPG cryptography. By means of GPG, the content can be encrypted using multiple public keys, restricting the access to the content only for those directly involved in the writing/reviewing process.
+* Privacy: An alternative to avoid storing the content as plain text is to use GPG cryptography. By means of GPG, the content can be encrypted using multiple public keys, restricting the access only for those directly involved in the writing/reviewing process.
 
 ## References
 
