@@ -14,6 +14,9 @@ Currently, this project makes use of the [Truffle Suite](https://truffleframewor
 
 ## References
 
+References of tools, papers/articles and other resources.
+
+### Tools
 * [Ethereum](https://ethereum.org/)
 * HyperLedger
   * [Fabric](https://www.hyperledger.org/projects/fabric)
@@ -22,4 +25,8 @@ Currently, this project makes use of the [Truffle Suite](https://truffleframewor
 * [IPFS](https://ipfs.io/)
 * [district0x](https://district0x.io/)
 
+### Papers
 * [Survey on open peer review: Attitudes and experience amongst editors, authors and reviewers](https://doi.org/10.1371/journal.pone.0189311)
+
+### Misc
+* [OpenAIRE](https://www.openaire.eu/)
