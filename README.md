@@ -21,3 +21,5 @@ Currently, this project makes use of the [Truffle Suite](https://truffleframewor
 * [IPDB](https://ipdb.io/)
 * [IPFS](https://ipfs.io/)
 * [district0x](https://district0x.io/)
+
+* [Survey on open peer review: Attitudes and experience amongst editors, authors and reviewers](https://doi.org/10.1371/journal.pone.0189311)
