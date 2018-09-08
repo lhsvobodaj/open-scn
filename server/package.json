@@ -6,7 +6,7 @@
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lhsvobodaj/openscn-plos"
+    "url": "https://github.com/lhsvobodaj/open-scn"
   },
   "engines": {
     "node": ">=8.11.1",
