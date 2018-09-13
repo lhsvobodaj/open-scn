@@ -1,0 +1,12 @@
+{
+    "type": "object",
+    "required": ["name", "h_index"],
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "h_index": {
+            "type": "integer"
+        }
+    }
+}
