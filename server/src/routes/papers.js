@@ -18,16 +18,41 @@
 'use strict';
 
 const express = require('express');
+const crypto = require('crypto');
 const router = express.Router();
 const web3Client = require('../web3Client');
+const PaperSchema = require('../schema/paper.json');
+const { Validator } = require('express-json-validator-middleware');
+const validator = new Validator({allErrors: true});
+const validate = validator.validate;
 
 router.get('/', async (req, res) => {
   const contract = await web3Client.getContract();
+  const papers = await contract.getPapers.call();
 
-  console.log(contract);
-  console.log('carregou o contrato com sucesso');
+  res.status(200).json({papers});
+});
 
-  res.json({'result': 'OK'});
+router.get('/:id', async (req, res) => {
+  const contract = await web3Client.getContract();
+  const paper = await contract.getPaper(req.params.id).call();
+
+  //TODO (svoboda) add support to load content from fs
+
+  res.status(200).json({paper});
+});
+
+router.post('/', validate({body: PaperSchema}), async (req, res) => {
+  const contract = await web3Client.getContract();
+
+  const md5_created = crypto.createHash('md5').update(req.body.title).digest('hex');
+
+  const md5_returned = await contract.createPaper(md5_created).call(
+    {from: req.header('X-Auth-Token')});
+
+  //TODO (svoboda) add support to create content in local fs
+
+  res.status(200).json({id: md5_returned});
 });
 
 module.exports = router;

@@ -23,6 +23,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const papersRouter = require('./routes/papers');
+const authorsRouter = require('./routes/authors');
 
 const PORT = 3001;
 
@@ -32,7 +33,8 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-app.use('/papers', papersRouter);
+app.use('/paper', papersRouter);
+app.use('/author', authorsRouter);
 
 app.listen(PORT);
 
