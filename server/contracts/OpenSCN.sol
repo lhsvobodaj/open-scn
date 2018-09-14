@@ -62,12 +62,12 @@ contract OpenSCN {
         authorRefs.push(msg.sender);
     }
 
-    function getAuthor(address _address) public view returns (address, string, uint8) {
-        require(authors[_address].exists, "Author not registered!");
+    function getAuthor(address authorAddress) public view returns (address, string, uint8) {
+        require(authors[authorAddress].exists, "Author not registered!");
 
-        Author memory author = authors[_address];
+        Author memory author = authors[authorAddress];
 
-        return (_address, author.name, author.h_index);
+        return (authorAddress, author.name, author.h_index);
     }
 
     function getPapers() public view returns (bytes16[]) {

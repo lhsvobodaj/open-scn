@@ -20,7 +20,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
-const cors = require('cors');
 
 const papersRouter = require('./routes/papers');
 const authorsRouter = require('./routes/authors');
@@ -31,10 +30,20 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-app.use(cors());
 
 app.use('/paper', papersRouter);
 app.use('/author', authorsRouter);
+
+// Default error handler
+app.use(function (err, req, res, next) { //eslint-disable-line no-unused-vars
+  console.error('[stack]: \n' + err.stack);
+
+  //FIXME (svoboda) proper error handling
+  res.status(500).json({
+    message: 'Service error',
+    error: err.message
+  });
+});
 
 app.listen(PORT);
 

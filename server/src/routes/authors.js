@@ -25,47 +25,51 @@ const { Validator } = require('express-json-validator-middleware');
 const validator = new Validator({allErrors: true});
 const validate = validator.validate;
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const contract = await web3Client.getContract();
-    const authors = await contract.getAuthors.call();
+    const authors = await contract.getAuthors();
 
     res.status(200).json({authors});
-  } catch (error) {
-    res.status(500).json({
-      message: 'Error retrieving authors',
-      error: error.message
-    });
+  } catch (err) {
+    next(err);
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const contract = await web3Client.getContract();
-    const author = await contract.getAuthor(req.params.id).call();
+    const author = await contract.getAuthor(req.params.id);
 
-    res.status(200).json({author});
-  } catch (error) {
-    // TODO (svoboda) here we can also have 404
-    res.status(500).json({
-      message: 'Error retrieving author',
-      error: error.message
+    res.status(200).json({
+      id: author[0],
+      name: author[1],
+      h_index: author[2]
     });
+  } catch (err) {
+    next(err);
   }
 });
 
-router.post('/', validate({body: AuthorSchema}), async (req, res) => {
-  const contract = await web3Client.getContract();
-  const body = req.body;
+router.post('/', validate({body: AuthorSchema}), async (req, res, next) => {
+  try {
+    if (!req.header('X-Auth-Token'))
+      throw Error('Missing X-Auth-Token header');
 
-  let address = await contract.registerAuthor(body.name, body.h_index).call(
-    {from: req.header('X-Auth-Token')});
+    const address = req.header('X-Auth-Token');
+    const contract = await web3Client.getContract();
+    const body = req.body;
 
-  res.status(200).json({
-    id: address,
-    name: body.name,
-    h_index: body.h_index
-  });
+    await contract.registerAuthor(body.name, body.h_index, {from: req.header('X-Auth-Token'), gas: 3000000});
+
+    res.status(200).json({
+      id: address,
+      name: body.name,
+      h_index: body.h_index
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

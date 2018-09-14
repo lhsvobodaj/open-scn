@@ -10,3 +10,4 @@ pep/**/*.log
 **/node_modules
 **/build
 
+**/.vscode

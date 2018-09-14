@@ -6,7 +6,7 @@
             "type": "string"
         },
         "h_index": {
-            "type": "integer"
+            "type": "number"
         }
     }
-}
+  }
