@@ -1,4 +1,4 @@
-# (C) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# Copyright (2018) Luiz Hermes Svoboda Junior
 
 pep/**/*.aux
 pep/**/*.bbl
@@ -11,3 +11,5 @@ pep/**/*.log
 **/build
 
 **/.vscode
+server/papers/
+
