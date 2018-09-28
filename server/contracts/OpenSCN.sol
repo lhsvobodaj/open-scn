@@ -65,22 +65,30 @@ contract OpenSCN {
         return paperRefs;
     }
 
-    function getPaper(address _address) public view returns(string, string, address) {
-        require(papersInitialized[_address], "Papers doesn't exist");
+    function getPaper(address _address) public view returns(string, address) {
+        require(papersInitialized[_address], "Paper doesn't exist");
 
         SCNPaper paper = papers[_address];
 
-        return (paper.getId(), paper.getTitle(), paper.getAuthor());
+        return (paper.getTitle(), paper.getAuthor());
     }
 
-    function createPaper(string id, string title) public {
+    function createPaper(string title) public {
         require(authors[msg.sender].exists, "Cannot create paper - author not registered");
 
-        SCNPaper paper = new SCNPaper(id, title, msg.sender);
+        SCNPaper paper = new SCNPaper(title, msg.sender);
 
         papers[paper] = paper;
         papersInitialized[paper] = true;
         paperRefs.push(paper);
+
+        // Functions that write data to the blockchain don't return values.
+        // Instead, they return the result of the transaction
+        //return paper;
+    }
+
+    function getCreatedPaper() public view returns(address) {
+        return paperRefs[paperRefs.length - 1];
     }
 
 }

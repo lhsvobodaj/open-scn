@@ -19,18 +19,12 @@ pragma solidity ^0.4.23;
 
 contract SCNPaper {
 
-    string id;
     string title;
     address author;
 
-    constructor(string _id, string _title, address _author) public {
-        id = _id;
+    constructor(string _title, address _author) public {
         title = _title;
         author = _author;
-    }
-
-    function getId() public view returns(string) {
-        return id;
     }
 
     function getTitle() public view returns(string) {
