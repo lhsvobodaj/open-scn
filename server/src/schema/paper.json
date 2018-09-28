@@ -1,11 +1,11 @@
 {
     "type": "object",
-    "required": ["author", "title", "content"],
+    "required": ["title"],
     "properties": {
-        "author": {
+        "title": {
             "type": "string"
         },
-        "title": {
+        "abstract": {
             "type": "string"
         },
         "content": {
