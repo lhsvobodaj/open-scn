@@ -17,8 +17,9 @@
 
 'use strict';
 
+const fs = require('fs');
 const express = require('express');
-const crypto = require('crypto');
+// const crypto = require('crypto');
 const router = express.Router();
 const web3Client = require('../web3Client');
 const PaperSchema = require('../schema/paper.json');
@@ -26,33 +27,59 @@ const { Validator } = require('express-json-validator-middleware');
 const validator = new Validator({allErrors: true});
 const validate = validator.validate;
 
-router.get('/', async (req, res) => {
-  const contract = await web3Client.getContract();
-  const papers = await contract.getPapers.call();
+router.get('/', async (req, res, next) => {
+  try {
+    const contract = await web3Client.getContract();
+    const papers = await contract.getPapers();
 
-  res.status(200).json({papers});
+    res.status(200).json({papers});
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get('/:id', async (req, res) => {
-  const contract = await web3Client.getContract();
-  const paper = await contract.getPaper(req.params.id).call();
+router.get('/:id', async (req, res, next) => {
+  try {
+    const contract = await web3Client.getContract();
+    const paper = await contract.getPaper(req.params.id);
+    const rawData = fs.readFileSync(`./papers/${req.params.id}.json`);
+    const content = JSON.parse(rawData);
 
-  //TODO (svoboda) add support to load content from fs
+    content.title = paper[0];
+    content.author = paper[1];
 
-  res.status(200).json({paper});
+    res.status(200).json(content);
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.post('/', validate({body: PaperSchema}), async (req, res) => {
-  const contract = await web3Client.getContract();
+router.post('/', validate({body: PaperSchema}), async (req, res, next) => {
+  try {
+    if (!req.header('X-Auth-Token'))
+      throw Error('Missing X-Auth-Token header');
 
-  const md5_created = crypto.createHash('md5').update(req.body.title).digest('hex');
+    const contract = await web3Client.getContract();
 
-  const md5_returned = await contract.createPaper(md5_created).call(
-    {from: req.header('X-Auth-Token')});
+    // Creates the paper - write data to the blockchain
+    await contract.createPaper(req.body.title,
+      {from: req.header('X-Auth-Token'), gas: 3000000});
 
-  //TODO (svoboda) add support to create content in local fs
+    const address = await contract.getCreatedPaper();
 
-  res.status(200).json({id: md5_returned});
+    const paper = {
+      address: address,
+      title: req.body.title,
+      abstract: null,
+      content: null
+    };
+
+    fs.writeFileSync(`./papers/${address}.json`, JSON.stringify(paper));
+
+    res.status(201).json(paper);
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

@@ -60,7 +60,8 @@ router.post('/', validate({body: AuthorSchema}), async (req, res, next) => {
     const contract = await web3Client.getContract();
     const body = req.body;
 
-    await contract.registerAuthor(body.name, body.h_index, {from: req.header('X-Auth-Token'), gas: 3000000});
+    await contract.registerAuthor(body.name, body.h_index,
+      {from: req.header('X-Auth-Token'), gas: 3000000});
 
     res.status(200).json({
       id: address,
