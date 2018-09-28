@@ -17,42 +17,33 @@
 
 pragma solidity ^0.4.23;
 
+import "./SCNPaper.sol";
+
 contract OpenSCN {
 
     struct Author {
+        // flag to indicate whether the struct is valid
         bool exists;
+
         string name;
         uint8 h_index;
     }
 
-    struct Paper {
-        bool exists;
-        address owner;
-        address[] contributors;
-        address[] reviewers;
-    }
+    mapping(address => SCNPaper) papers;
+    mapping(address => bool) papersInitialized;
+    address[] paperRefs;
 
-    // solidity generates a public getter (ex.: authors.Author(0x1234))
+    // solidity generates a public getter when marked with public
+    // (ex.: authors.Author(0x1234))
     mapping(address => Author) authors;
     address[] authorRefs;
-
-    /*
-    MD5 used to address the content of the paper
-    Function param input example:
-      ["0x31", "0x32", "0x33", "0x34",
-       "0x35", "0x36", "0x37", "0x38",
-       "0x39", "0x30", "0x31", "0x32",
-       "0x33", "0x34", "0x35", "0x36"]
-    */
-    mapping(bytes16 => Paper) papers;
-    bytes16[] paperRefs;
 
     function getAuthors() public view returns(address[]) {
         return authorRefs;
     }
 
     function registerAuthor(string name, uint8 h_index) public {
-        require(!authors[msg.sender].exists, "Author already registered!");
+        require(!authors[msg.sender].exists, "Author already registered");
 
         // Creates a temporary struct in memory - solidity will generate code
         // to copy the struct from memory to storage
@@ -63,25 +54,33 @@ contract OpenSCN {
     }
 
     function getAuthor(address authorAddress) public view returns (address, string, uint8) {
-        require(authors[authorAddress].exists, "Author not registered!");
+        require(authors[authorAddress].exists, "Author not registered");
 
         Author memory author = authors[authorAddress];
 
         return (authorAddress, author.name, author.h_index);
     }
 
-    function getPapers() public view returns (bytes16[]) {
+    function getPapers() public view returns(address[]) {
         return paperRefs;
     }
 
-    function createPaper(bytes16 md5) public returns (bytes16) {
-        require(!papers[md5].exists, "Paper already exists!");
+    function getPaper(address _address) public view returns(string, string, address) {
+        require(papersInitialized[_address], "Papers doesn't exist");
 
-        Paper memory paper = Paper(true, msg.sender, new address[](0), new address[](0));
+        SCNPaper paper = papers[_address];
 
-        papers[md5] = paper;
-        paperRefs.push(md5);
-
-        return md5;
+        return (paper.getId(), paper.getTitle(), paper.getAuthor());
     }
+
+    function createPaper(string id, string title) public {
+        require(authors[msg.sender].exists, "Cannot create paper - author not registered");
+
+        SCNPaper paper = new SCNPaper(id, title, msg.sender);
+
+        papers[paper] = paper;
+        papersInitialized[paper] = true;
+        paperRefs.push(paper);
+    }
+
 }
