@@ -30,7 +30,7 @@ export class NavSidebar extends Component {
     return (
       <Sidebar fixed={true} colorIndex='neutral-3'>
         <Header>
-          <Title>PLOS App</Title>
+          <Title>OpenSCN</Title>
         </Header>
         <Menu fill={true} primary={true}>
           <Anchor key='Dashboard' path='/dashboard' label='Dashboard'/>
