@@ -15,24 +15,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import Title from 'grommet/components/Title';
-import Box from 'grommet/components/Box';
-import Split from 'grommet/components/Split';
+import LoginForm from 'grommet/components/LoginForm';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { NavSidebar } from './NavSidebar';
+import { login } from '../../actions/session';
 
-import React from 'react';
-import { Component } from 'react';
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
 
-export default class NotImplemented extends Component {
+    this._onSubmit = this._onSubmit.bind(this);
+  }
+
+  _onSubmit(fields) {
+    this.props.dispatch(login(fields.username, fields.password));
+  }
+
   render() {
+
     return (
-      <Split priority='left' flex='right'>
-        <NavSidebar />
-        <Box full={true} align='center'>
-          <Title>Opss... not implemented yet!</Title>
-        </Box>
-      </Split>
+      <LoginForm
+        align='center'
+        title='OpenSCN'
+        secondaryText='Open Scientific Community Network'
+        onSubmit={this._onSubmit}
+        //errors={[error]}
+        usernameType='email'
+      />
     );
   }
+
 }
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  session: PropTypes.object
+};

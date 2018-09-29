@@ -15,24 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import Title from 'grommet/components/Title';
-import Box from 'grommet/components/Box';
-import Split from 'grommet/components/Split';
+import Login from '../ui/Login';
+import { connect } from 'react-redux';
 
-import { NavSidebar } from './NavSidebar';
+const mapStateToProps = (state) => {
+  return {
+    session: state.session
+  };
+};
 
-import React from 'react';
-import { Component } from 'react';
-
-export default class NotImplemented extends Component {
-  render() {
-    return (
-      <Split priority='left' flex='right'>
-        <NavSidebar />
-        <Box full={true} align='center'>
-          <Title>Opss... not implemented yet!</Title>
-        </Box>
-      </Split>
-    );
-  }
-}
+export default connect(mapStateToProps)(Login);

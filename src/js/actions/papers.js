@@ -26,15 +26,7 @@ const papersLoaded = (papers) => {
 
 export const loadPapers = () => {
   return dispatch => {
-
-    // const sample = [
-    //   {title: 'Sample title #1', abstract: 'Sample abstract #1'},
-    //   {title: 'Sample title #2', abstract: 'Sample abstract #2'},
-    //   {title: 'Sample title #3', abstract: 'Sample abstract #3'}
-    // ];
-    // dispatch(papersLoaded(sample));
-
-    const url = 'http://localhost:3001/papers';
+    const url = 'http://localhost:3001/paper';
     const options = { method: 'GET' };
 
     fetch(url, options)

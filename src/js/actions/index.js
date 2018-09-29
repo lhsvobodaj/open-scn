@@ -16,3 +16,4 @@
  */
 
 export const LOAD_PAPERS = 'LOAD_PAPERS';
+export const SESSION_LOAD = 'SESSION_LOAD';

@@ -23,10 +23,16 @@ import '../stylesheet/index.scss';
 import { Main } from './Main';
 import store from './store';
 
+import { initialize }  from './actions/session';
+
 window.React = React;
 
 // TODO [svoboda] allows access to store from browser console
 window.store = store;
+
+if (window.location.pathname !== '/login') {
+  store.dispatch(initialize(window.location.pathname));
+}
 
 render(
   <Provider store={store}>

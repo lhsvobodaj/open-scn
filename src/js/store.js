@@ -21,7 +21,8 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 
 let initialState = {
-  papers: []
+  papers: [],
+  session: null
 };
 
 export default createStore(reducers, initialState, applyMiddleware(thunk));

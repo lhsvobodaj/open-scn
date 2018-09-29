@@ -16,15 +16,17 @@
  */
 
 import App from 'grommet/components/App';
-import Split from 'grommet/components/Split';
+// import Split from 'grommet/components/Split';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { Component } from 'react';
 
-import { NavSidebar } from './components/ui/NavSidebar';
+// import Login from './components/ui/Login';
+// import { NavSidebar } from './components/ui/NavSidebar';
 import NotImplemented from './components/ui/NotImplemented';
 import Papers from './components/containers/Papers';
+import Login from './components/containers/Login'
 
 export class Main extends Component {
 
@@ -32,16 +34,27 @@ export class Main extends Component {
     return (
       <App centered={false}>
         <BrowserRouter>
-          <Split priority='left' flex='right'>
-            <NavSidebar />
-            <Switch>
-              <Route exact={true} path='/' component={NotImplemented} />
-              <Route path='/dashboard' component={NotImplemented} />
-              <Route path='/papers' component={Papers} />
-            </Switch>
-          </Split>
+          <Switch>
+            <Route exact={true} path='/' component={NotImplemented} />
+            <Route path='/dashboard' component={NotImplemented} />
+            <Route path='/papers' component={Papers} />
+            <Route path='/login' component={Login} />
+          </Switch>
         </BrowserRouter>
       </App>
+      // <App centered={false}>
+      //   <BrowserRouter>
+      //     <Split priority='left' flex='right'>
+      //       <NavSidebar />
+      //       <Switch>
+      //         <Route exact={true} path='/' component={NotImplemented} />
+      //         <Route path='/dashboard' component={NotImplemented} />
+      //         <Route path='/papers' component={Papers} />
+      //         <Route path='/login' component={Login} />
+      //       </Switch>
+      //     </Split>
+      //   </BrowserRouter>
+      // </App>
     );
   }
 

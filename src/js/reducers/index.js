@@ -17,7 +17,7 @@
 
 import { combineReducers } from 'redux';
 
-import { LOAD_PAPERS } from '../actions';
+import { LOAD_PAPERS, SESSION_LOAD } from '../actions';
 
 const papersReducer = (state=[], action) => {
   if (action.type === LOAD_PAPERS) {
@@ -27,6 +27,17 @@ const papersReducer = (state=[], action) => {
   }
 };
 
+const sessionReducer = (state=null, action) => {
+  if (action.type === SESSION_LOAD) {
+    return action.payload;
+  } else {
+    return state;
+  }
+};
+
 export default combineReducers(
-  { papers: papersReducer }
+  {
+    papers: papersReducer,
+    session: sessionReducer
+  }
 );
