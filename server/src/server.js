@@ -23,6 +23,7 @@ const morgan = require('morgan');
 
 const papersRouter = require('./routes/papers');
 const authorsRouter = require('./routes/authors');
+const sessionRouter = require('./routes/session');
 
 const PORT = 3001;
 
@@ -33,6 +34,7 @@ app.use(morgan('dev'));
 
 app.use('/paper', papersRouter);
 app.use('/author', authorsRouter);
+app.use('/session', sessionRouter);
 
 // Default error handler
 app.use(function (err, req, res, next) { //eslint-disable-line no-unused-vars
