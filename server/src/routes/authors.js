@@ -42,9 +42,10 @@ router.get('/:id', async (req, res, next) => {
     const author = await contract.getAuthor(req.params.id);
 
     res.status(200).json({
-      id: author[0],
-      name: author[1],
-      h_index: author[2]
+      name: author[0],
+      email: author[1],
+      token: author[2],
+      h_index: author[3]
     });
   } catch (err) {
     next(err);

@@ -26,6 +26,7 @@ contract OpenSCN {
         bool exists;
 
         string name;
+        string email;
         uint8 h_index;
     }
 
@@ -34,31 +35,42 @@ contract OpenSCN {
     address[] paperRefs;
 
     // solidity generates a public getter when marked with public
-    // (ex.: authors.Author(0x1234))
+    // (ex.: authors.Author('0x1234'))
     mapping(address => Author) authors;
+    mapping(string => address) authorsByEmail;
     address[] authorRefs;
 
     function getAuthors() public view returns(address[]) {
         return authorRefs;
     }
 
-    function registerAuthor(string name, uint8 h_index) public {
+    function registerAuthor(string name, string email, uint8 h_index) public {
         require(!authors[msg.sender].exists, "Author already registered");
 
         // Creates a temporary struct in memory - solidity will generate code
         // to copy the struct from memory to storage
-        Author memory author = Author(true, name, h_index);
+        Author memory author = Author(true, name, email, h_index);
 
         authors[msg.sender] = author;
+        authorsByEmail[email] = msg.sender;
         authorRefs.push(msg.sender);
     }
 
-    function getAuthor(address authorAddress) public view returns (address, string, uint8) {
-        require(authors[authorAddress].exists, "Author not registered");
+    function getAuthor(address _address) public view returns (string, string, address, uint8) {
+        require(authors[_address].exists, "Author not registered");
 
-        Author memory author = authors[authorAddress];
+        Author memory author = authors[_address];
 
-        return (authorAddress, author.name, author.h_index);
+        return (author.name, author.email, _address, author.h_index);
+    }
+
+    function getAuthorByEmail(string email) public view returns (string, string, address, uint8) {
+        require(authorsByEmail[email] != address(0), "Author not registered");
+
+        address _address = authorsByEmail[email];
+        Author memory author = authors[_address];
+
+        return (author.name, author.email, _address, author.h_index);
     }
 
     function getPapers() public view returns(address[]) {
