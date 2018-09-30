@@ -30,9 +30,20 @@ const validate = validator.validate;
 router.get('/', async (req, res, next) => {
   try {
     const contract = await web3Client.getContract();
-    const papers = await contract.getPapers();
+    const response = await contract.getPapers();
+    const papers = [];
 
-    res.status(200).json({papers});
+    for (let i = 0; i < response.length; i++) {
+      const paper = await contract.getPaper(response[i]);
+
+      papers.push({
+        title: paper.title,
+        description: paper.description,
+        author: paper.author
+      });
+    }
+
+    res.status(200).json(papers);
   } catch (err) {
     next(err);
   }
@@ -46,7 +57,8 @@ router.get('/:id', async (req, res, next) => {
     const content = JSON.parse(rawData);
 
     content.title = paper[0];
-    content.author = paper[1];
+    content.description = paper[1];
+    content.author = paper[2];
 
     res.status(200).json(content);
   } catch (err) {
@@ -62,7 +74,9 @@ router.post('/', validate({body: PaperSchema}), async (req, res, next) => {
     const contract = await web3Client.getContract();
 
     // Creates the paper - write data to the blockchain
-    await contract.createPaper(req.body.title,
+    await contract.createPaper(
+      req.body.title,
+      req.body.description,
       {from: req.header('X-Auth-Token'), gas: 3000000});
 
     const address = await contract.getCreatedPaper();
@@ -70,6 +84,7 @@ router.post('/', validate({body: PaperSchema}), async (req, res, next) => {
     const paper = {
       address: address,
       title: req.body.title,
+      description: req.body.description,
       abstract: null,
       content: null
     };

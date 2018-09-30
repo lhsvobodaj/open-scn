@@ -40,7 +40,7 @@ export default class Papers extends Component {
   render() {
     const values = this.props.papers.map((paper, index) => (
       <AccordionPanel key={index} heading={paper.title}>
-        <Paragraph>{paper.abstract}</Paragraph>
+        <Paragraph>{paper.description}</Paragraph>
       </AccordionPanel>
     ));
 

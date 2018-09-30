@@ -20,10 +20,17 @@ pragma solidity ^0.4.23;
 contract SCNPaper {
 
     string title;
+    string description;
     address author;
 
-    constructor(string _title, address _author) public {
+    modifier onlyAuthor(address _address) {
+        require(msg.sender == _address, "Sender not authorized!");
+        _;
+    }
+
+    constructor(string _title, string _description, address _author) public {
         title = _title;
+        description = _description;
         author = _author;
     }
 
@@ -31,10 +38,16 @@ contract SCNPaper {
         return title;
     }
 
-    function setTitle(string _title) public {
-        require(msg.sender == author, "Only authors can change the title");
-
+    function setTitle(string _title) public onlyAuthor(author) {
         title = _title;
+    }
+
+    function getDescription() public view returns(string) {
+        return description;
+    }
+
+    function setDescription(string _description) public onlyAuthor(author) {
+        description = _description;
     }
 
     function getAuthor() public view returns(address) {

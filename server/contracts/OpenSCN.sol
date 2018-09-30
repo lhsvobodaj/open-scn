@@ -77,18 +77,18 @@ contract OpenSCN {
         return paperRefs;
     }
 
-    function getPaper(address _address) public view returns(string, address) {
+    function getPaper(address _address) public view returns(string, string, address) {
         require(papersInitialized[_address], "Paper doesn't exist");
 
         SCNPaper paper = papers[_address];
 
-        return (paper.getTitle(), paper.getAuthor());
+        return (paper.getTitle(), paper.getDescription(), paper.getAuthor());
     }
 
-    function createPaper(string title) public {
+    function createPaper(string title, string description) public {
         require(authors[msg.sender].exists, "Cannot create paper - author not registered");
 
-        SCNPaper paper = new SCNPaper(title, msg.sender);
+        SCNPaper paper = new SCNPaper(title, description, msg.sender);
 
         papers[paper] = paper;
         papersInitialized[paper] = true;
