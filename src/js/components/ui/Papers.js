@@ -17,24 +17,34 @@
 
 import Accordion from 'grommet/components/Accordion';
 import AccordionPanel from 'grommet/components/AccordionPanel';
+import Button from 'grommet/components/Button';
 import Header from 'grommet/components/Header';
-import Heading from 'grommet/components/Heading';
+import Title from 'grommet/components/Title';
+import Box from 'grommet/components/Box';
 import Paragraph from 'grommet/components/Paragraph';
 import Article from 'grommet/components/Article';
+import Split from 'grommet/components/Split';
 
 import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { loadPapers } from '../../actions/papers';
+import { NavSidebar } from './NavSidebar';
 
 export default class Papers extends Component {
   constructor(props) {
     super(props);
+
+    this._onClick = this._onClick.bind(this);
   }
 
   componentDidMount() {
     this.props.dispatch(loadPapers());
+  }
+
+  _onClick() {
+    alert('Button pressed!');
   }
 
   render() {
@@ -45,14 +55,22 @@ export default class Papers extends Component {
     ));
 
     return (
-      <Article primary={true}>
-        <Header direction='row' size='large' justify='between'>
-          <Heading>Papers</Heading>
-        </Header>
-        <Accordion>
-          {values}
-        </Accordion>
-      </Article>
+      <Split priority='left' flex='right'>
+        <NavSidebar />
+        <Article primary={true}>
+          <Header>
+            <Title>
+              Papers
+            </Title>
+            <Box flex={true} justify='end' direction='row' responsive={false}>
+              <Button label='Create' onClick={this._onClick} href='#' />
+            </Box>
+          </Header>
+          <Accordion>
+            {values}
+          </Accordion>
+        </Article>
+      </Split>
     );
   }
 }

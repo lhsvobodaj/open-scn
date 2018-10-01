@@ -37,9 +37,9 @@ router.get('/', async (req, res, next) => {
       const paper = await contract.getPaper(response[i]);
 
       papers.push({
-        title: paper.title,
-        description: paper.description,
-        author: paper.author
+        title: paper[0],
+        description: paper[1],
+        author: paper[2]
       });
     }
 
