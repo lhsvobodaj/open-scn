@@ -22,8 +22,10 @@ import React from 'react';
 import { Component } from 'react';
 
 import NotImplemented from './components/ui/NotImplemented';
-import Papers from './components/containers/Papers';
-import Login from './components/containers/Login';
+import Papers from './components/ui/Papers';
+import Login from './components/ui/Login';
+import Paper from './components/ui/Paper';
+import Layout from './components/containers/Layout';
 
 export class Main extends Component {
 
@@ -32,10 +34,13 @@ export class Main extends Component {
       <App centered={false}>
         <BrowserRouter>
           <Switch>
-            <Route exact={true} path='/' component={NotImplemented} />
-            <Route path='/dashboard' component={NotImplemented} />
-            <Route path='/papers' component={Papers} />
+            {/* <Route exact={true} path='/' component={NotImplemented} /> */}
             <Route path='/login' component={Login} />
+            <Layout>
+              <Route path='/dashboard' component={NotImplemented} />
+              <Route exact path='/papers' component={Papers} />
+              <Route path='/papers/:id' component={Paper} />
+            </Layout>
           </Switch>
         </BrowserRouter>
       </App>

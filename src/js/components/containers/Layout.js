@@ -15,13 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import Papers from '../ui/Papers';
-import { connect } from 'react-redux';
+// import Title from 'grommet/components/Title';
+// import Box from 'grommet/components/Box';
+import Split from 'grommet/components/Split';
 
-const mapStateToProps = (state) => {
-  return {
-    papers: state.papers
-  };
-};
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-export default connect(mapStateToProps)(Papers);
+import React from 'react';
+import { Component } from 'react';
+
+import { NavSidebar } from '../ui/NavSidebar';
+// import NotImplemented from '../ui/NotImplemented';
+
+export default class Layout extends Component {
+  render() {
+    return (
+      <Split priority='left' flex='right'>
+        <NavSidebar />
+        {this.props.children}
+      </Split>
+    );
+  }
+}

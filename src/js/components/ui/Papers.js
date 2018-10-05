@@ -28,11 +28,11 @@ import Split from 'grommet/components/Split';
 import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { loadPapers } from '../../actions/papers';
-import { NavSidebar } from './NavSidebar';
 
-export default class Papers extends Component {
+class Papers extends Component {
   constructor(props) {
     super(props);
 
@@ -55,22 +55,19 @@ export default class Papers extends Component {
     ));
 
     return (
-      <Split priority='left' flex='right'>
-        <NavSidebar />
-        <Article primary={true}>
-          <Header>
-            <Title>
-              Papers
-            </Title>
-            <Box flex={true} justify='end' direction='row' responsive={false}>
-              <Button label='Create' onClick={this._onClick} href='#' />
-            </Box>
-          </Header>
-          <Accordion>
-            {values}
-          </Accordion>
-        </Article>
-      </Split>
+      <Article primary={true}>
+        <Header>
+          <Title>
+            Papers
+          </Title>
+          <Box flex={true} justify='end' direction='row' responsive={false}>
+            <Button label='Create' onClick={this._onClick} href='#' />
+          </Box>
+        </Header>
+        <Accordion>
+          {values}
+        </Accordion>
+      </Article>
     );
   }
 }
@@ -80,3 +77,11 @@ Papers.propTypes = {
   error: PropTypes.object,
   papers: PropTypes.arrayOf(PropTypes.object)
 };
+
+const mapStateToProps = (state) => {
+  return {
+    papers: state.papers
+  };
+};
+
+export default connect(mapStateToProps)(Papers);
