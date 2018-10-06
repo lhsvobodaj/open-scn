@@ -19,7 +19,6 @@
 
 const fs = require('fs');
 const express = require('express');
-// const crypto = require('crypto');
 const router = express.Router();
 const web3Client = require('../web3Client');
 const PaperSchema = require('../schema/paper.json');
@@ -37,9 +36,10 @@ router.get('/', async (req, res, next) => {
       const paper = await contract.getPaper(response[i]);
 
       papers.push({
+        address: response[i],
         title: paper[0],
         description: paper[1],
-        author: paper[2]
+        author: paper[2],
       });
     }
 

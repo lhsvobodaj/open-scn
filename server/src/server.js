@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/paper', papersRouter);
+app.use('/papers', papersRouter);
 app.use('/author', authorsRouter);
 app.use('/session', sessionRouter);
 
