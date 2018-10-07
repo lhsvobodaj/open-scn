@@ -15,19 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import Form from 'grommet/components/Form';
+import React from 'react';
+import Article from 'grommet/components/Article';
+import Box from 'grommet/components/Box';
 import Header from 'grommet/components/Header';
-import FormFields from 'grommet/components/FormFields';
-import FormField from 'grommet/components/FormField';
 import Footer from 'grommet/components/Footer';
 import TextInput from 'grommet/components/TextInput';
+import Section from 'grommet/components/Section';
 import Button from 'grommet/components/Button';
+import Label from 'grommet/components/Label';
 import Title from 'grommet/components/Title';
 
-import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Component } from 'react';
 
-export default class Paper extends Component {
+import { newPaper, loadPaper } from '../../actions/paper';
+
+class Paper extends Component {
 
   constructor(props) {
     super(props);
@@ -39,26 +44,62 @@ export default class Paper extends Component {
     alert('Submit button pressed!');
   }
 
+  componentDidMount() {
+    const { address } = this.props.match.params;
+
+    if (address === 'new') {
+      this.props.dispatch(newPaper());
+    } else {
+      this.props.dispatch(loadPaper(address));
+    }
+  }
+
   render() {
+    let title = this.props.paper.title || '';
+    let description = this.props.paper.description || '';
+    let address = this.props.paper.address;
+
+    let header = (title && description) ? address : 'New Paper';
+
     return (
-      <Form compact={false} pad={{horizontal: 'small'}} >
+      <Article>
         <Header>
           <Title>
-            New Paper
+            {header}
           </Title>
         </Header>
-        <FormFields>
-          <FormField label='Title'>
-            <TextInput  />
-          </FormField>
-          <FormField label='Abstract'>
-            <TextInput />
-          </FormField>
-        </FormFields>
-        <Footer pad={ {'vertical': 'medium'} }>
-          <Button label='Submit' type='submit' primary={true} onClick={this._onClick} />
+        <Section>
+          <hr/>
+          <Label align='start'>Title</Label>
+          <TextInput/>
+          <Label align='start'>Description</Label>
+          <TextInput/>
+          <Label align='start'>Abstract</Label>
+          <textarea rows='5' type='text' id='abstract' name='abstract' />
+          <Label align='start'>Content</Label>
+          <textarea rows='10' type='text' id='content' name='content' />
+        </Section>
+        <Footer>
+          <Box align='end' full='horizontal' justify='end' alignContent='end' direction='row'>
+            <Button label='Submit' type='submit' onClick={this._onClick} />
+          </Box>
         </Footer>
-      </Form>
+      </Article>
     );
   }
 }
+
+Paper.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  paper: PropTypes.object,
+  match: PropTypes.object,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    paper: state.paper
+  };
+};
+
+export default connect(mapStateToProps)(Paper);

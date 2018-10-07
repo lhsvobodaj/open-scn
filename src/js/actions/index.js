@@ -16,4 +16,10 @@
  */
 
 export const LOAD_PAPERS = 'LOAD_PAPERS';
+
+// Session management
 export const SESSION_LOAD = 'SESSION_LOAD';
+export const SESSION_END = 'SESSION_END';
+
+export const NEW_PAPER = 'NEW_PAPER';
+export const LOAD_PAPER = 'LOAD_PAPER';

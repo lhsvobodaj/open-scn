@@ -23,7 +23,6 @@ import Title from 'grommet/components/Title';
 import Box from 'grommet/components/Box';
 import Paragraph from 'grommet/components/Paragraph';
 import Article from 'grommet/components/Article';
-import Split from 'grommet/components/Split';
 
 import React from 'react';
 import { Component } from 'react';
@@ -35,24 +34,26 @@ import { loadPapers } from '../../actions/papers';
 class Papers extends Component {
   constructor(props) {
     super(props);
-
-    this._onClick = this._onClick.bind(this);
   }
 
   componentDidMount() {
     this.props.dispatch(loadPapers());
   }
 
-  _onClick() {
-    alert('Button pressed!');
-  }
-
   render() {
-    const values = this.props.papers.map((paper, index) => (
-      <AccordionPanel key={index} heading={paper.title}>
-        <Paragraph>{paper.description}</Paragraph>
-      </AccordionPanel>
-    ));
+    const values = this.props.papers.map((paper, index) =>
+    {
+      return (
+        <AccordionPanel key={index} heading={paper.title}>
+          <Box direction='row' justify='end' full='horizontal'>
+            <Button label='Open' href={`/papers/${paper.address}`} />
+          </Box>
+          <Paragraph>
+            {paper.description}
+          </Paragraph>
+        </AccordionPanel>
+      );
+    });
 
     return (
       <Article primary={true}>
@@ -61,7 +62,7 @@ class Papers extends Component {
             Papers
           </Title>
           <Box flex={true} justify='end' direction='row' responsive={false}>
-            <Button label='Create' onClick={this._onClick} href='#' />
+            <Button label='Create' href='/papers/new' />
           </Box>
         </Header>
         <Accordion>

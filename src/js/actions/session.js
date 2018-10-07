@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import { SESSION_LOAD } from './index';
+import { SESSION_LOAD, SESSION_END } from './index';
 
 const localStorage = window.localStorage;
 
@@ -25,6 +25,13 @@ const sessionLoad = (email, name, token) => {
     payload: {
       email, name, token
     }
+  };
+};
+
+const sessionEnd = () => {
+  return {
+    type: SESSION_END,
+    payload: {}
   };
 };
 
@@ -57,6 +64,18 @@ export const login = (email, password) => {
         window.location = '/dashboard'; // reload fully
       })
       .catch(error => console.log(error));
+  };
+};
+
+export const logout = () => {
+  return dispatch => {
+    delete localStorage.email;
+    delete localStorage.name;
+    delete localStorage.token;
+
+    dispatch(sessionEnd());
+
+    window.location = '/login';
   };
 };
 

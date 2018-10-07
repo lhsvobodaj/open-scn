@@ -15,25 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-// import Title from 'grommet/components/Title';
-// import Box from 'grommet/components/Box';
+import React from 'react';
+import Box from 'grommet/components/Box';
 import Split from 'grommet/components/Split';
 
-// import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
-import React from 'react';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { NavSidebar } from '../ui/NavSidebar';
-// import NotImplemented from '../ui/NotImplemented';
+import NavSidebar from '../ui/NavSidebar';
 
 export default class Layout extends Component {
   render() {
     return (
-      <Split priority='left' flex='right'>
+      <Split priority='right' flex='right'>
         <NavSidebar />
-        {this.props.children}
+
+        <Box pad='medium' align='stretch' justify='end' basis='full'>
+          {this.props.children}
+        </Box>
       </Split>
     );
   }
 }
+
+Layout.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object),
+};

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import React from 'react';
 import Sidebar from 'grommet/components/Sidebar';
 import Header from 'grommet/components/Header';
 import Footer from 'grommet/components/Footer';
@@ -22,37 +23,52 @@ import Button from 'grommet/components/Button';
 import Title from 'grommet/components/Title';
 import Menu from 'grommet/components/Menu';
 import Anchor from 'grommet/components/Anchor';
-import React from 'react';
 
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export class NavSidebar extends Component {
+import { logout } from '../../actions/session';
+
+class NavSidebar extends Component {
 
   constructor(props) {
     super(props);
 
-    this._onClick = this._onClick.bind(this);
+    this._onClickLogout = this._onClickLogout.bind(this);
   }
 
-  _onClick() {
-    alert('Logout pressed!');
+  _onClickLogout() {
+    this.props.dispatch(logout());
   }
 
   render() {
     return (
-      <Sidebar fixed={true} colorIndex='neutral-3'>
-        <Header pad='medium' justify='between'>
+      <Sidebar pad='small' size='small' colorIndex='neutral-3'>
+        <Header justify='between'>
           <Title>OpenSCN</Title>
         </Header>
-        <Menu fill={true} primary={true}>
+        <Menu size='small' fill={true} primary={true}>
           <Anchor key='Dashboard' path='/dashboard' label='Dashboard'/>
           <Anchor key='Papers' path='/papers' label='Papers'/>
         </Menu>
-        <Footer pad='medium'>
-          <Button label='Logout' onClick={this._onClick} href='#' />
+        <Footer>
+          <Button label='Logout' onClick={this._onClickLogout} />
         </Footer>
       </Sidebar>
     );
   }
 
 }
+
+NavSidebar.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => {
+  return {
+    session: state.session
+  };
+};
+
+export default connect(mapStateToProps)(NavSidebar);

@@ -17,18 +17,35 @@
 
 import { combineReducers } from 'redux';
 
-import { LOAD_PAPERS, SESSION_LOAD } from '../actions';
+import * as Action from '../actions';
+
+const NEW_PAPER = {
+  title: undefined,
+  description: undefined,
+  address: undefined
+};
 
 const papersReducer = (state=[], action) => {
-  if (action.type === LOAD_PAPERS) {
+  if (action.type === Action.LOAD_PAPERS) {
     return action.payload;
   } else {
     return state;
   }
 };
 
-const sessionReducer = (state=null, action) => {
-  if (action.type === SESSION_LOAD) {
+const paperReducer = (state=NEW_PAPER, action) => {
+  if (action.type === Action.NEW_PAPER) {
+    return NEW_PAPER;
+  } else if (action.type === Action.LOAD_PAPER) {
+    return action.payload;
+  } else {
+    return state;
+  }
+};
+
+const sessionReducer = (state={}, action) => {
+  if ((action.type === Action.SESSION_LOAD)
+    || (action.type === Action.SESSION_END)) {
     return action.payload;
   } else {
     return state;
@@ -37,6 +54,7 @@ const sessionReducer = (state=null, action) => {
 
 export default combineReducers(
   {
+    paper: paperReducer,
     papers: papersReducer,
     session: sessionReducer
   }
