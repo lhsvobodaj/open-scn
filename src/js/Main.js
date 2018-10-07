@@ -39,7 +39,7 @@ export class Main extends Component {
             <Layout>
               <Route path='/dashboard' component={NotImplemented} />
               <Route exact path='/papers' component={Papers} />
-              <Route path='/papers/:id' component={Paper} />
+              <Route path='/papers/:address' component={Paper} />
             </Layout>
           </Switch>
         </BrowserRouter>
