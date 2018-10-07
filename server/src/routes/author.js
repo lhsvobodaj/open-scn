@@ -28,9 +28,11 @@ const validate = validator.validate;
 router.get('/', async (req, res, next) => {
   try {
     const contract = await web3Client.getContract();
-    const authors = await contract.getAuthors();
+    const response = await contract.getAuthors();
 
-    res.status(200).json({authors});
+    const authors = response.map(author => { return {'id': author}; });
+
+    res.status(200).json(authors);
   } catch (err) {
     next(err);
   }
@@ -44,8 +46,8 @@ router.get('/:id', async (req, res, next) => {
     res.status(200).json({
       name: author[0],
       email: author[1],
-      token: author[2],
-      h_index: author[3]
+      h_index: author[2],
+      address: author[3],
     });
   } catch (err) {
     next(err);
@@ -61,12 +63,13 @@ router.post('/', validate({body: AuthorSchema}), async (req, res, next) => {
     const contract = await web3Client.getContract();
     const body = req.body;
 
-    await contract.registerAuthor(body.name, body.h_index,
+    await contract.registerAuthor(body.name, body.email, body.h_index,
       {from: req.header('X-Auth-Token'), gas: 3000000});
 
-    res.status(200).json({
+    res.status(201).json({
       id: address,
       name: body.name,
+      email: body.email,
       h_index: body.h_index
     });
   } catch (err) {

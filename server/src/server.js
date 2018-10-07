@@ -21,8 +21,8 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 
-const papersRouter = require('./routes/papers');
-const authorsRouter = require('./routes/authors');
+const papersRouter = require('./routes/paper');
+const authorsRouter = require('./routes/author');
 const sessionRouter = require('./routes/session');
 
 const PORT = 3001;
@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/papers', papersRouter);
+app.use('/paper', papersRouter);
 app.use('/author', authorsRouter);
 app.use('/session', sessionRouter);
 
@@ -55,4 +55,4 @@ app.use(function (err, req, res, next) { //eslint-disable-line no-unused-vars
 
 app.listen(PORT);
 
-console.log('Listening on port ' + PORT);
+console.log('> Listening on port ' + PORT);

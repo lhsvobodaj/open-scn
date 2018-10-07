@@ -85,8 +85,8 @@ router.post('/', validate({body: PaperSchema}), async (req, res, next) => {
       address: address,
       title: req.body.title,
       description: req.body.description,
-      abstract: null,
-      content: null
+      abstract: req.body.abstract || '',
+      content: req.body.content || ''
     };
 
     fs.writeFileSync(`./papers/${address}.json`, JSON.stringify(paper));

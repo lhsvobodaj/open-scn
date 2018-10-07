@@ -1,8 +1,11 @@
 {
     "type": "object",
-    "required": ["name", "h_index"],
+    "required": ["name", "email", "h_index"],
     "properties": {
         "name": {
+            "type": "string"
+        },
+        "email": {
             "type": "string"
         },
         "h_index": {
