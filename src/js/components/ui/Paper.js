@@ -37,11 +37,10 @@ class Paper extends Component {
   constructor(props) {
     super(props);
 
-    this._onClick = this._onClick.bind(this);
-  }
+    this._onSubmit = this._onSubmit.bind(this);
+    this._handleFieldChange = this._handleFieldChange.bind(this);
 
-  _onClick() {
-    alert('Submit button pressed!');
+    this._paper = {};
   }
 
   componentDidMount() {
@@ -54,11 +53,18 @@ class Paper extends Component {
     }
   }
 
+  _handleFieldChange(event) {
+    this._paper[event.target.id] = event.target.value;
+  }
+
+  _onSubmit() {
+    console.log(this._paper);
+  }
+
   render() {
     let title = this.props.paper.title || '';
     let description = this.props.paper.description || '';
     let address = this.props.paper.address;
-
     let header = (title && description) ? address : 'New Paper';
 
     return (
@@ -70,18 +76,21 @@ class Paper extends Component {
         </Header>
         <Section>
           <hr/>
-          <Label align='start'>Title</Label>
-          <TextInput/>
-          <Label align='start'>Description</Label>
-          <TextInput/>
+          <Label align='start'>Title:</Label>
+          <TextInput id='title' onDOMChange={this._handleFieldChange} />
+
+          <Label align='start'>Description:</Label>
+          <TextInput id='description' onDOMChange={this._handleFieldChange} />
+
           <Label align='start'>Abstract</Label>
-          <textarea rows='5' type='text' id='abstract' name='abstract' />
+          <textarea rows='5' type='text' id='abstract' onChange={this._handleFieldChange} />
+
           <Label align='start'>Content</Label>
-          <textarea rows='10' type='text' id='content' name='content' />
+          <textarea rows='10' type='text' id='content' onChange={this._handleFieldChange} />
         </Section>
         <Footer>
           <Box align='end' full='horizontal' justify='end' alignContent='end' direction='row'>
-            <Button label='Submit' type='submit' onClick={this._onClick} />
+            <Button label='Submit' type='submit' onClick={this._onSubmit} />
           </Box>
         </Footer>
       </Article>
