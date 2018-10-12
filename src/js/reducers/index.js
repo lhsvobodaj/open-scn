@@ -38,6 +38,11 @@ const paperReducer = (state=NEW_PAPER, action) => {
     return NEW_PAPER;
   } else if (action.type === Action.LOAD_PAPER) {
     return action.payload;
+  } else if (action.type === Action.PAPER_CHANGED) {
+    const change = action.payload;
+    state[change.field] = change.content;
+
+    return state;
   } else {
     return state;
   }

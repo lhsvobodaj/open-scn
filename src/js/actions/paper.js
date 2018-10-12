@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
-import { NEW_PAPER, LOAD_PAPER } from './index';
+import { NEW_PAPER, LOAD_PAPER, PAPER_CHANGED } from './index';
 
 const createPaper = () => {
   return {
@@ -30,9 +30,31 @@ const paperLoaded = (paper) => {
   };
 };
 
+const paperChanged = (field, content) => {
+  return {
+    type: PAPER_CHANGED,
+    payload: {
+      field: field,
+      content: content
+    }
+  };
+};
+
 export const newPaper = () => {
   return dispatch => {
     dispatch(createPaper());
+  };
+};
+
+export const loadPaper = (address) => {
+  return dispatch => {
+    const url = 'http://localhost:3001/paper/' + address;
+    const options = { method: 'GET' };
+
+    fetch(url, options)
+      .then(response => response.json())
+      .then(result => dispatch(paperLoaded(result)))
+      .catch(error => console.log(error));
   };
 };
 
@@ -55,14 +77,8 @@ export const savePaper = (author, paper) => {
   };
 };
 
-export const loadPaper = (address) => {
+export const paperFieldChanged = (field, content) => {
   return dispatch => {
-    const url = 'http://localhost:3001/paper/' + address;
-    const options = { method: 'GET' };
-
-    fetch(url, options)
-      .then(response => response.json())
-      .then(result => dispatch(paperLoaded(result)))
-      .catch(error => console.log(error));
+    dispatch(paperChanged(field, content));
   };
 };

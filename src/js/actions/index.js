@@ -23,3 +23,4 @@ export const SESSION_END = 'SESSION_END';
 
 export const NEW_PAPER = 'NEW_PAPER';
 export const LOAD_PAPER = 'LOAD_PAPER';
+export const PAPER_CHANGED = 'PAPER_CHANGED';

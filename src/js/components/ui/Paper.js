@@ -30,7 +30,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Component } from 'react';
 
-import { newPaper, loadPaper } from '../../actions/paper';
+import { newPaper, loadPaper, paperFieldChanged } from '../../actions/paper';
 
 class Paper extends Component {
 
@@ -39,8 +39,6 @@ class Paper extends Component {
 
     this._onSubmit = this._onSubmit.bind(this);
     this._handleFieldChange = this._handleFieldChange.bind(this);
-
-    this._paper = {};
   }
 
   componentDidMount() {
@@ -54,11 +52,12 @@ class Paper extends Component {
   }
 
   _handleFieldChange(event) {
-    this._paper[event.target.id] = event.target.value;
+    this.props.dispatch(
+      paperFieldChanged(event.target.id, event.target.value));
   }
 
   _onSubmit() {
-    console.log(this._paper);
+    console.log(this.props.paper);
   }
 
   render() {
@@ -76,10 +75,10 @@ class Paper extends Component {
         </Header>
         <Section>
           <hr/>
-          <Label align='start'>Title:</Label>
+          <Label align='start'>Title (required):</Label>
           <TextInput id='title' onDOMChange={this._handleFieldChange} />
 
-          <Label align='start'>Description:</Label>
+          <Label align='start'>Description (required):</Label>
           <TextInput id='description' onDOMChange={this._handleFieldChange} />
 
           <Label align='start'>Abstract</Label>
@@ -102,12 +101,14 @@ Paper.propTypes = {
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.object,
   paper: PropTypes.object,
-  match: PropTypes.object,
+  session: PropTypes.object,
+  match: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
-    paper: state.paper
+    paper: state.paper,
+    session: state.session
   };
 };
 
