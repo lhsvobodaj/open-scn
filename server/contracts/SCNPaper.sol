@@ -19,14 +19,9 @@ pragma solidity ^0.4.23;
 
 contract SCNPaper {
 
-    string title;
-    string description;
+    string public title;
+    string public description;
     address author;
-
-    modifier onlyAuthor(address _address) {
-        require(msg.sender == _address, "Sender not authorized!");
-        _;
-    }
 
     constructor(string _title, string _description, address _author) public {
         title = _title;
@@ -38,7 +33,7 @@ contract SCNPaper {
         return title;
     }
 
-    function setTitle(string _title) public onlyAuthor(author) {
+    function setTitle(string _title) public {
         title = _title;
     }
 
@@ -46,7 +41,7 @@ contract SCNPaper {
         return description;
     }
 
-    function setDescription(string _description) public onlyAuthor(author) {
+    function setDescription(string _description) public {
         description = _description;
     }
 

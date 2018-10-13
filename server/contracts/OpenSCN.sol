@@ -99,6 +99,16 @@ contract OpenSCN {
         //return paper;
     }
 
+    function updatePaper(address _address, string title, string description) public {
+        require(authors[msg.sender].exists, "Cannot update paper - author not registered");
+        require(papersInitialized[_address], "Paper doesn't exist");
+
+        SCNPaper paper = papers[_address];
+
+        paper.setTitle(title);
+        paper.setDescription(description);
+    }
+
     function getCreatedPaper() public view returns(address) {
         return paperRefs[paperRefs.length - 1];
     }
