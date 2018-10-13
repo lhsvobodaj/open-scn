@@ -68,26 +68,26 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', validate({body: PaperSchema}), async (req, res, next) => {
   try {
-    if (!req.header('X-Auth-Token'))
+    if (!req.get('X-Auth-Token'))
       throw Error('Missing X-Auth-Token header');
 
     const contract = await web3Client.getContract();
 
     await contract.updatePaper(
-      req.params.id,
+      req.body.address,
       req.body.title,
       req.body.description,
       {from: req.header('X-Auth-Token'), gas: 3000000});
 
     const paper = {
-      address: req.params.id,
+      address: req.body.address,
       title: req.body.title,
       description: req.body.description,
       abstract: req.body.abstract || '',
       content: req.body.content || ''
     };
 
-    fs.writeFileSync(`./papers/${req.params.id}.json`, JSON.stringify(paper));
+    fs.writeFileSync(`./papers/${req.body.address}.json`, JSON.stringify(paper));
 
     res.status(200).json(paper);
   } catch (err) {
@@ -97,7 +97,7 @@ router.put('/:id', validate({body: PaperSchema}), async (req, res, next) => {
 
 router.post('/', validate({body: PaperSchema}), async (req, res, next) => {
   try {
-    if (!req.header('X-Auth-Token'))
+    if (!req.get('X-Auth-Token'))
       throw Error('Missing X-Auth-Token header');
 
     const contract = await web3Client.getContract();
