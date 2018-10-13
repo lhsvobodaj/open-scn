@@ -21,8 +21,6 @@ import Sidebar from 'grommet/components/Sidebar';
 import Header from 'grommet/components/Header';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
-import Label from 'grommet/components/Label';
-import Box from 'grommet/components/Box';
 import Title from 'grommet/components/Title';
 import Menu from 'grommet/components/Menu';
 import Anchor from 'grommet/components/Anchor';

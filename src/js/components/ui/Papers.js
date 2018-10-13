@@ -75,8 +75,8 @@ class Papers extends Component {
 
 Papers.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.object,
-  papers: PropTypes.arrayOf(PropTypes.object)
+  papers: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.object
 };
 
 const mapStateToProps = (state) => {

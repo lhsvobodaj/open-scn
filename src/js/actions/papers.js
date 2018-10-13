@@ -15,14 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
-import { LOAD_PAPERS } from './index';
-
-const papersLoaded = (papers) => {
-  return {
-    type: LOAD_PAPERS,
-    payload: papers
-  };
-};
+import { Papers } from './index';
 
 export const loadPapers = () => {
   return dispatch => {
@@ -31,8 +24,8 @@ export const loadPapers = () => {
 
     fetch(url, options)
       .then(response => response.json())
-      .then(result => {
-        dispatch(papersLoaded(result));
+      .then(papers => {
+        dispatch({ type: Papers.LOAD, payload: papers });
       })
       .catch(error => console.log(error));
   };
