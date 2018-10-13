@@ -16,10 +16,13 @@
  */
 
 import React from 'react';
+import UserIcon from 'grommet/components/icons/base/User';
 import Sidebar from 'grommet/components/Sidebar';
 import Header from 'grommet/components/Header';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
+import Label from 'grommet/components/Label';
+import Box from 'grommet/components/Box';
 import Title from 'grommet/components/Title';
 import Menu from 'grommet/components/Menu';
 import Anchor from 'grommet/components/Anchor';
@@ -35,10 +38,10 @@ class NavSidebar extends Component {
   constructor(props) {
     super(props);
 
-    this._onClickLogout = this._onClickLogout.bind(this);
+    this.onClickLogout = this.onClickLogout.bind(this);
   }
 
-  _onClickLogout() {
+  onClickLogout() {
     this.props.dispatch(logout());
   }
 
@@ -53,7 +56,7 @@ class NavSidebar extends Component {
           <Anchor key='Papers' path='/papers' label='Papers'/>
         </Menu>
         <Footer>
-          <Button label='Logout' onClick={this._onClickLogout} />
+          <Button icon={<UserIcon />} label='Logout' onClick={this.onClickLogout} />
         </Footer>
       </Sidebar>
     );
@@ -62,7 +65,8 @@ class NavSidebar extends Component {
 }
 
 NavSidebar.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  session: PropTypes.object
 };
 
 const mapStateToProps = (state) => {

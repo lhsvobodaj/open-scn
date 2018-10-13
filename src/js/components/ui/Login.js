@@ -15,33 +15,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import React, { Component } from 'react';
 import Box from 'grommet/components/Box';
 import LoginForm from 'grommet/components/LoginForm';
-import React, { Component } from 'react';
+import Toast from 'grommet/components/Toast';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { login } from '../../actions/session';
+import { Error } from '../../actions';
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
-    this._onSubmit = this._onSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onClose = this.onClose.bind(this);
   }
 
-  _onSubmit(fields) {
+  onSubmit(fields) {
     this.props.dispatch(login(fields.username, fields.password));
   }
 
+  onClose() {
+    this.props.dispatch({type: Error.HIDE});
+  }
+
   render() {
+    const error = this.props.error;
+    let errorComponent;
+
+    if (error && error.status) {
+      errorComponent = (
+        <Toast status={error.status} onClose={this.onClose}>{error.message}</Toast>
+      );
+    }
+
     return (
       <Box align='center' alignContent='center' appCentered={true}>
+        {errorComponent}
         <LoginForm
           align='center'
           title='OpenSCN'
           secondaryText='Open Scientific Community Network'
-          onSubmit={this._onSubmit}
+          onSubmit={this.onSubmit}
           usernameType='email'
         />
       </Box>
@@ -51,12 +68,14 @@ class Login extends Component {
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  session: PropTypes.object
+  session: PropTypes.object,
+  error: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
-    session: state.session
+    session: state.session,
+    error:state.error
   };
 };
 

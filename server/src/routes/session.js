@@ -32,8 +32,8 @@ router.post('/', validate({body: SessionSchema}), async (req, res, next) => {
     res.status(200).json({
       name: author[0],
       email: author[1],
-      token: author[2],
-      h_index: author[3]
+      h_index: author[2],
+      token: author[3]
     });
   } catch (err) {
     next(err);

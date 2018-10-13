@@ -15,23 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import { SESSION_LOAD, SESSION_END } from './index';
-
-const localStorage = window.localStorage;
+import { Session, Error } from './index';
 
 const sessionLoad = (email, name, token) => {
   return {
-    type: SESSION_LOAD,
-    payload: {
-      email, name, token
-    }
-  };
-};
-
-const sessionEnd = () => {
-  return {
-    type: SESSION_END,
-    payload: {}
+    type: Session.LOAD,
+    payload: { email, name, token }
   };
 };
 
@@ -48,34 +37,45 @@ export const login = (email, password) => {
     };
 
     fetch(url, options)
-      .then(response => response.json())
-      .then(result => {
+      .then(response => new Promise((resolve, reject) => {
+        if (response.status !== 200) {
+          reject({status: 'critical', message: 'Login failed!'});
+        } else {
+          resolve(response.json());
+        }
+      }))
+      .then(user => {
         try {
-          const { email, name, token } = result;
+          const { email, name, token } = user;
+          const localStorage = window.localStorage;
 
           localStorage.email = email;
           localStorage.name = name;
           localStorage.token = token;
 
-          dispatch(sessionLoad(email, name, token));
+          dispatch(sessionLoad(email, name, token, ));
+          // FIXME (svoboda) implement appropriate redirect
+          window.location.href = '/papers';
         } catch (error) {
           console.log('Unable to save session (maybe because of private mode)');
         }
-        window.location = '/dashboard'; // reload fully
       })
-      .catch(error => console.log(error));
+      .catch(error => dispatch({type: Error.SHOW, payload: error}));
   };
 };
 
 export const logout = () => {
   return dispatch => {
+    const localStorage = window.localStorage;
+
     delete localStorage.email;
     delete localStorage.name;
     delete localStorage.token;
 
-    dispatch(sessionEnd());
+    dispatch({type: Session.END, payload: {}});
 
-    window.location = '/login';
+    // FIXME (svoboda) implement appropriate redirect
+    window.location.href = '/login';
   };
 };
 
