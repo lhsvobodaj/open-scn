@@ -17,50 +17,59 @@
 
 import { combineReducers } from 'redux';
 
-import * as Action from '../actions';
+import { Error, Session, Papers, Paper } from '../actions';
 
-const NEW_PAPER = {
-  title: undefined,
-  description: undefined,
-  address: undefined
+const sessionReducer = (state={}, action) => {
+  switch (action.type) {
+  case Session.LOAD:
+  case Session.END:
+    return action.payload;
+  default:
+    return state;
+  }
 };
 
 const papersReducer = (state=[], action) => {
-  if (action.type === Action.LOAD_PAPERS) {
+  switch (action.type) {
+  case Papers.LOAD:
     return action.payload;
-  } else {
+  default:
     return state;
   }
 };
 
-const paperReducer = (state=NEW_PAPER, action) => {
-  if (action.type === Action.NEW_PAPER) {
-    return NEW_PAPER;
-  } else if (action.type === Action.LOAD_PAPER) {
+const paperReducer = (state={}, action) => {
+  switch (action.type) {
+  case Paper.LOAD:
+  case Paper.NEW:
     return action.payload;
-  } else if (action.type === Action.PAPER_CHANGED) {
-    const change = action.payload;
+  case Paper.ON_CHANGE: {
+    let change = action.payload;
     state[change.field] = change.content;
 
     return state;
-  } else {
+  }
+  default:
     return state;
   }
 };
 
-const sessionReducer = (state={}, action) => {
-  if ((action.type === Action.SESSION_LOAD)
-    || (action.type === Action.SESSION_END)) {
+const errorReducer = (state={}, action) => {
+  switch (action.type) {
+  case Error.SHOW:
     return action.payload;
-  } else {
+  case Error.HIDE:
+    return {};
+  default:
     return state;
   }
 };
 
 export default combineReducers(
   {
-    paper: paperReducer,
+    session: sessionReducer,
     papers: papersReducer,
-    session: sessionReducer
+    paper: paperReducer,
+    error: errorReducer
   }
 );

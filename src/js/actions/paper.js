@@ -15,70 +15,68 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
-import { NEW_PAPER, LOAD_PAPER, PAPER_CHANGED } from './index';
+import { Paper } from './index';
 
-const createPaper = () => {
-  return {
-    type: NEW_PAPER
-  };
+const EMPTY_PAPER = {
+  address: undefined,
+  title: '',
+  description: '',
+  abstract: '',
+  content: ''
 };
 
-const paperLoaded = (paper) => {
-  return {
-    type: LOAD_PAPER,
-    payload: paper
-  };
-};
+export const savePaper = (token, paper) => {
+  return () => {
+    // Default values to save a new paper
+    let url = 'http://localhost:3001/paper';
+    let method = 'POST';
 
-const paperChanged = (field, content) => {
-  return {
-    type: PAPER_CHANGED,
-    payload: {
-      field: field,
-      content: content
+    if (paper.address && paper.address.startsWith('0x')) {
+      url += '/' + paper.address;
+      method = 'PUT';
     }
+
+    const options = {
+      method,
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'X-Auth-Token': token
+      },
+      body: JSON.stringify(paper)
+    };
+
+    fetch(url, options)
+      .then(response => response.json())
+      .then(newPaper => window.location.href = '/papers/' + newPaper.address)
+      .catch(error => console.log(error));
   };
 };
 
-export const newPaper = () => {
+export const onChangePaper = (field, content) => {
   return dispatch => {
-    dispatch(createPaper());
+    dispatch({
+      type: Paper.ON_CHANGE,
+      payload: {
+        field,
+        content
+      }
+    });
   };
 };
 
 export const loadPaper = (address) => {
   return dispatch => {
-    const url = 'http://localhost:3001/paper/' + address;
-    const options = { method: 'GET' };
+    if (address && address.startsWith('0x')) {
+      const url = 'http://localhost:3001/paper/' + address;
+      const options = { method: 'GET' };
 
-    fetch(url, options)
-      .then(response => response.json())
-      .then(result => dispatch(paperLoaded(result)))
-      .catch(error => console.log(error));
-  };
-};
-
-export const savePaper = (author, paper) => {
-  return dispath => {
-    const url = 'http://localhost:3001/paper';
-    const options = {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        'X-Auth-Token': author
-      },
-      body: JSON.stringify(paper)
-    };
-    fetch(url, options)
-      .then(response => response.json())
-      .then(paper => dispath(paperLoaded(paper)))
-      .catch(error => console.log(error));
-  };
-};
-
-export const paperFieldChanged = (field, content) => {
-  return dispatch => {
-    dispatch(paperChanged(field, content));
+      fetch(url, options)
+        .then(response => response.json())
+        .then(paper => dispatch({type: Paper.LOAD, payload: paper}))
+        .catch(error => console.log(error));
+    } else {
+      dispatch({type: Paper.NEW, payload: EMPTY_PAPER});
+    }
   };
 };

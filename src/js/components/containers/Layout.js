@@ -20,24 +20,47 @@ import Box from 'grommet/components/Box';
 import Split from 'grommet/components/Split';
 
 import { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import NavSidebar from '../ui/NavSidebar';
 
-export default class Layout extends Component {
-  render() {
-    return (
-      <Split priority='right' flex='right'>
-        <NavSidebar />
+class Layout extends Component {
 
-        <Box pad='medium' align='stretch' justify='end' basis='full'>
-          {this.props.children}
-        </Box>
-      </Split>
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const session = this.props.session;
+
+    if (session && session.token) {
+      return (
+        <Split priority='right' flex='right'>
+          <NavSidebar />
+
+          <Box pad='medium' align='stretch' justify='end' basis='full'>
+            {this.props.children}
+          </Box>
+        </Split>
+      );
+    }
+    return (
+      <Redirect to='/login' push={true} />
     );
   }
 }
 
 Layout.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object),
+  session: PropTypes.object
 };
+
+const mapStateToProps = (state) => {
+  return {
+    session: state.session,
+  };
+};
+
+export default connect(mapStateToProps)(Layout);

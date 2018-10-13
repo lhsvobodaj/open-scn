@@ -17,6 +17,8 @@
 
 import { Session, Error } from './index';
 
+const localStorage = window.localStorage;
+
 const sessionLoad = (email, name, token) => {
   return {
     type: Session.LOAD,
@@ -47,13 +49,12 @@ export const login = (email, password) => {
       .then(user => {
         try {
           const { email, name, token } = user;
-          const localStorage = window.localStorage;
 
           localStorage.email = email;
           localStorage.name = name;
           localStorage.token = token;
 
-          dispatch(sessionLoad(email, name, token, ));
+          dispatch(sessionLoad(email, name, token));
           // FIXME (svoboda) implement appropriate redirect
           window.location.href = '/papers';
         } catch (error) {
@@ -66,8 +67,6 @@ export const login = (email, password) => {
 
 export const logout = () => {
   return dispatch => {
-    const localStorage = window.localStorage;
-
     delete localStorage.email;
     delete localStorage.name;
     delete localStorage.token;

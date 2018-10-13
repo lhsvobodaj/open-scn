@@ -23,7 +23,13 @@ import reducers from './reducers';
 let initialState = {
   session: {},
   papers: [],
-  paper: {},
+  paper: {
+    address: undefined,
+    title: '',
+    description: '',
+    abstract: '',
+    content: ''
+  },
   error: {}
 };
 

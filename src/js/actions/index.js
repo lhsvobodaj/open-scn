@@ -15,12 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-export const LOAD_PAPERS = 'LOAD_PAPERS';
+export const Error = {
+  SHOW: 'SHOW_ERROR',
+  HIDE: 'HIDE_ERROR'
+};
 
-// Session management
-export const SESSION_LOAD = 'SESSION_LOAD';
-export const SESSION_END = 'SESSION_END';
+export const Session = {
+  LOAD: 'LOAD_SESSION',
+  END: 'END_SESSION'
+};
 
-export const NEW_PAPER = 'NEW_PAPER';
-export const LOAD_PAPER = 'LOAD_PAPER';
-export const PAPER_CHANGED = 'PAPER_CHANGED';
+export const Papers = {
+  LOAD: 'LOAD_PAPERS'
+};
+
+export const Paper = {
+  NEW: 'NEW_PAPER',
+  LOAD: 'LOAD_PAPER',
+  ON_CHANGE: 'ON_CHANGE_PAPER'
+};

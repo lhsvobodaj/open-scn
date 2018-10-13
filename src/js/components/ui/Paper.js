@@ -30,66 +30,72 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Component } from 'react';
 
-import { newPaper, loadPaper, paperFieldChanged } from '../../actions/paper';
+import { loadPaper, onChangePaper, savePaper } from '../../actions/paper';
 
 class Paper extends Component {
 
   constructor(props) {
     super(props);
 
-    this._onSubmit = this._onSubmit.bind(this);
-    this._handleFieldChange = this._handleFieldChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     const { address } = this.props.match.params;
 
-    if (address === 'new') {
-      this.props.dispatch(newPaper());
-    } else {
-      this.props.dispatch(loadPaper(address));
-    }
+    this.props.dispatch(loadPaper(address));
   }
 
-  _handleFieldChange(event) {
+  handleChange(event) {
+    const field = event.target.id;
+    const content = event.target.value;
+
+    this.props.dispatch(onChangePaper(field, content));
+
+    this.forceUpdate();
+  }
+
+  onSubmit() {
     this.props.dispatch(
-      paperFieldChanged(event.target.id, event.target.value));
-  }
-
-  _onSubmit() {
-    console.log(this.props.paper);
+      savePaper(this.props.session.token, this.props.paper));
   }
 
   render() {
-    let title = this.props.paper.title || '';
-    let description = this.props.paper.description || '';
-    let address = this.props.paper.address;
-    let header = (title && description) ? address : 'New Paper';
+    let paper = this.props.paper;
 
     return (
       <Article>
         <Header>
           <Title>
-            {header}
+            {(paper.address) ? 'Id: ' + paper.address : 'New Paper'}
           </Title>
         </Header>
         <Section>
           <hr/>
           <Label align='start'>Title (required):</Label>
-          <TextInput id='title' onDOMChange={this._handleFieldChange} />
+          <TextInput id='title'
+            value={paper.title}
+            onDOMChange={this.handleChange} />
 
           <Label align='start'>Description (required):</Label>
-          <TextInput id='description' onDOMChange={this._handleFieldChange} />
+          <TextInput id='description'
+            value={paper.description}
+            onDOMChange={this.handleChange} />
 
           <Label align='start'>Abstract</Label>
-          <textarea rows='5' type='text' id='abstract' onChange={this._handleFieldChange} />
+          <textarea rows='5' type='text' id='abstract'
+            value={paper.abstract}
+            onChange={this.handleChange} />
 
           <Label align='start'>Content</Label>
-          <textarea rows='10' type='text' id='content' onChange={this._handleFieldChange} />
+          <textarea rows='10' type='text' id='content'
+            value={paper.content}
+            onChange={this.handleChange} />
         </Section>
         <Footer>
           <Box align='end' full='horizontal' justify='end' alignContent='end' direction='row'>
-            <Button label='Submit' type='submit' onClick={this._onSubmit} />
+            <Button label='Submit' type='submit' onClick={this.onSubmit}/>
           </Box>
         </Footer>
       </Article>
@@ -99,16 +105,17 @@ class Paper extends Component {
 
 Paper.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.object,
-  paper: PropTypes.object,
+  match: PropTypes.object,
   session: PropTypes.object,
-  match: PropTypes.object
+  paper: PropTypes.object,
+  error: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
+    session: state.session,
     paper: state.paper,
-    session: state.session
+    error: state.error
   };
 };
 
