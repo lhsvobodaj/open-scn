@@ -1,7 +1,7 @@
 {
   "name": "blockchain-plos-client",
   "version": "1.0.0",
-  "description": "Blockchain PLOS Client",
+  "description": "OpenSCN UI",
   "author": "Luiz Hermes Svoboda Junior <luizek@gmail.com>",
   "license": "GPL-3.0",
   "repository": {
