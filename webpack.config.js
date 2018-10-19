@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -34,7 +34,7 @@ module.exports = {
     watchOptions: {
       ignored: /node_modules/
     },
-    port: 3000
+    port: 8080
   },
   module: {
     rules: [

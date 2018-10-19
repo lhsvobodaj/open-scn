@@ -16,13 +16,15 @@
 */
 
 import { Papers } from './index';
+import Conf from '../open-scn';
+
+const BASE_URL = `http://${Conf.server.host}:${Conf.server.port}/paper`;
 
 export const loadPapers = () => {
   return dispatch => {
-    const url = 'http://localhost:3001/paper';
     const options = { method: 'GET' };
 
-    fetch(url, options)
+    fetch(BASE_URL, options)
       .then(response => response.json())
       .then(papers => {
         dispatch({ type: Papers.LOAD, payload: papers });

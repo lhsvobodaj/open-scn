@@ -16,6 +16,9 @@
  */
 
 import { Session, Error } from './index';
+import Conf from '../open-scn';
+
+const BASE_URL = `http://${Conf.server.host}:${Conf.server.port}/session`;
 
 const localStorage = window.localStorage;
 
@@ -28,7 +31,6 @@ const sessionLoad = (email, name, token) => {
 
 export const login = (email, password) => {
   return dispatch => {
-    const url = 'http://localhost:3001/session';
     const options = {
       method: 'POST',
       mode: 'cors',
@@ -38,7 +40,7 @@ export const login = (email, password) => {
       body: JSON.stringify({'email': email, 'password': password})
     };
 
-    fetch(url, options)
+    fetch(BASE_URL, options)
       .then(response => new Promise((resolve, reject) => {
         if (response.status !== 200) {
           reject({status: 'critical', message: 'Login failed!'});

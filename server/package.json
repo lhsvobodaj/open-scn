@@ -16,6 +16,7 @@
     "body-parser": "1.18.2",
     "express": "4.16.3",
     "express-json-validator-middleware": "1.2.3",
+    "ganache-cli": "6.1.0",
     "morgan": "1.9.0",
     "solc": "0.4.23",
     "truffle": "4.1.8",

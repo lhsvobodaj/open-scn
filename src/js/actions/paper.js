@@ -16,6 +16,7 @@
 */
 
 import { Paper } from './index';
+import Conf from '../open-scn';
 
 const EMPTY_PAPER = {
   address: undefined,
@@ -25,10 +26,12 @@ const EMPTY_PAPER = {
   content: ''
 };
 
+const BASE_URL = `http://${Conf.server.host}:${Conf.server.port}/paper`;
+
 export const savePaper = (token, paper) => {
   return () => {
     // Default values to save a new paper
-    let url = 'http://localhost:3001/paper';
+    let url = BASE_URL;
     let method = 'POST';
 
     if (paper.address && paper.address.startsWith('0x')) {
@@ -68,7 +71,7 @@ export const onChangePaper = (field, content) => {
 export const loadPaper = (address) => {
   return dispatch => {
     if (address && address.startsWith('0x')) {
-      const url = 'http://localhost:3001/paper/' + address;
+      const url = BASE_URL + '/' + address;
       const options = { method: 'GET' };
 
       fetch(url, options)

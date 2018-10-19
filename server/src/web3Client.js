@@ -18,7 +18,11 @@
 'use strict';
 
 const Web3 = require('web3');
-const provider = new Web3.providers.HttpProvider('http://127.0.0.1:9545');
+const Truffle = require('../truffle');
+const Network = Truffle.networks.development;
+const TRUFFLE_URL = `http://${Network.host}:${Network.port}`;
+
+const provider = new Web3.providers.HttpProvider(TRUFFLE_URL);
 
 if (provider.sendAsync !== 'function') {
   provider.sendAsync = provider.send.bind(provider);

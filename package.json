@@ -44,6 +44,6 @@
   "scripts": {
     "start": "webpack-dev-server --mode development -d --progress --display-error-details",
     "build": "webpack -d",
-    "prod": "webpack --mode production"
+    "prod": "webpack-dev-server --mode production -d --progress --host 0.0.0.0"
   }
 }
