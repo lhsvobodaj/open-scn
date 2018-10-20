@@ -25,7 +25,7 @@ const papersRouter = require('./routes/paper');
 const authorsRouter = require('./routes/author');
 const sessionRouter = require('./routes/session');
 
-const PORT = 3001;
+const PORT = 8081;
 
 const app = express();
 
