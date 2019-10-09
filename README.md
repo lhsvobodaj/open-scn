@@ -18,12 +18,17 @@ References of tools, papers/articles and other resources.
 
 ### Tools
 * [Ethereum](https://ethereum.org/)
+* [Truffle](https://truffleframework.com/truffle)
+  * `migrate --reset` (no need to restart)
+  * `selfdestruct(owner)` contract is still acessible
 * HyperLedger
   * [Fabric](https://www.hyperledger.org/projects/fabric)
 * [PLOS](https://www.plos.org/)
 * [IPDB](https://ipdb.io/)
 * [IPFS](https://ipfs.io/)
 * [district0x](https://district0x.io/)
+
+
 
 ### Papers
 * [Survey on open peer review: Attitudes and experience amongst editors, authors and reviewers](https://doi.org/10.1371/journal.pone.0189311)
