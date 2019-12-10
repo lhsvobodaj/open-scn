@@ -15,7 +15,7 @@
   "dependencies": {
     "grommet": "1.10.1",
     "react": "16.3.1",
-    "react-dom": "16.3.1",
+    "react-dom": "16.3.3",
     "react-router-dom": "4.2.2"
   },
   "devDependencies": {
